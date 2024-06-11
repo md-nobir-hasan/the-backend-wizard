@@ -2,9 +2,9 @@
 
 namespace Nobir\TheBackendWizard;
 
+use Nobir\TheBackendWizard\Commands\TheBackendWizardCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Nobir\TheBackendWizard\Commands\TheBackendWizardCommand;
 
 class TheBackendWizardServiceProvider extends PackageServiceProvider
 {

@@ -3,8 +3,8 @@
 namespace Nobir\TheBackendWizard\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Nobir\TheBackendWizard\TheBackendWizardServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
