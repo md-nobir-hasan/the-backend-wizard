@@ -18,7 +18,7 @@ class TheBackendWizardServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->commands([
-            TheBackendWizardCommand::class
+            TheBackendWizardCommand::class,
         ]);
     }
 }
