@@ -20,5 +20,8 @@ class TheBackendWizardServiceProvider extends ServiceProvider
         $this->commands([
             TheBackendWizardCommand::class
         ]);
+        $this->publishes([
+            __DIR__ . '/template/config.php' => config_path('backend.php'),
+        ],'backend-config');
     }
 }
