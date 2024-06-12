@@ -6,14 +6,20 @@ use Illuminate\Console\Command;
 
 class TheBackendWizardCommand extends Command
 {
-    public $signature = 'the-backend-wizard';
+    public $signature = 'nobir:admin {moduleName}';
 
-    public $description = 'My command';
+    public $description = 'Enter a module name';
 
+    //modules
+    const ADMINPANELSETUP='admin-panel-setup';
+    const USERMANAGEMENT='admin-panel-setup';
     public function handle(): int
     {
-        $this->comment('All done');
+        $this->info($this->argument('moduleName'));
 
         return self::SUCCESS;
     }
+
+
+
 }

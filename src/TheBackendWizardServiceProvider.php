@@ -2,24 +2,23 @@
 
 namespace Nobir\TheBackendWizard;
 
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use Nobir\TheBackendWizard\Commands\TheBackendWizardCommand;
 
-class TheBackendWizardServiceProvider extends PackageServiceProvider
+class TheBackendWizardServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    public function register(): void
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
-        $package
-            ->name('the-backend-wizard')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_the-backend-wizard_table')
-            ->hasCommand(TheBackendWizardCommand::class);
+        //
+    }
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        $this->commands([
+            TheBackendWizardCommand::class
+        ]);
     }
 }
