@@ -10,10 +10,10 @@ use Nobir\TheBackendWizard\Traits\PathManager;
 class TheBackendWizardCommand extends Command
 {
     use DataProcessing, PathManager;
+
     public $signature = 'nobir:backend {moduleName}';
 
     public $description = 'Enter a module name';
-
 
     public function handle(): int
     {

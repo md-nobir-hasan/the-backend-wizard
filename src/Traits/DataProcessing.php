@@ -2,9 +2,12 @@
 
 namespace Nobir\TheBackendWizard\Traits;
 
-trait DataProcessing{
-    const STRING='string';
-    public function DataTypeProcessing($dataType){
+trait DataProcessing
+{
+    const STRING = 'string';
+
+    public function DataTypeProcessing($dataType)
+    {
 
     }
 }
