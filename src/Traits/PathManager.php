@@ -12,13 +12,21 @@ class PathManager
 
     // Dynamically assigned keys
     public static $ASSET_PATH_KEY;
+
     public static $VIEW_PATH_KEY;
+
     public static $MIGRATION_PATH_KEY;
+
     public static $SEEDER_PATH_KEY;
+
     public static $CONTROLLER_PATH_KEY;
+
     public static $SERVICE_CLASS_PATH_KEY;
+
     public static $REQUESTS_PATH_KEY;
+
     public static $FACTORY_PATH_KEY;
+
     public static $ROUTE_PATH_KEY;
 
     public function __construct()

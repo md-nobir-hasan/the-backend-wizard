@@ -33,7 +33,9 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
         $this->seederCall();
     }
-    public function seederCall(){
-        
+
+    public function seederCall()
+    {
+
     }
 }
