@@ -1,4 +1,5 @@
 <?php
+
 namespace Nobir\TheBackendWizard\Traits;
 
 trait DataProcessing{
@@ -7,4 +8,3 @@ trait DataProcessing{
 
     }
 }
-?>

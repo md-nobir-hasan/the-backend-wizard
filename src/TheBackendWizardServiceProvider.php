@@ -18,7 +18,7 @@ class TheBackendWizardServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->commands([
-            TheBackendWizardCommand::class
+            TheBackendWizardCommand::class,
         ]);
         $this->publishes([
             __DIR__ . '/template/config.php' => config_path('backend.php'),
