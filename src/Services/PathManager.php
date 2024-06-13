@@ -1,6 +1,6 @@
 <?php
 
-namespace Nobir\TheBackendWizard\Traits;
+namespace Nobir\TheBackendWizard\Services;
 
 use Illuminate\Support\Facades\File;
 

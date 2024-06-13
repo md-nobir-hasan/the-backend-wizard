@@ -5,7 +5,7 @@ namespace Nobir\TheBackendWizard\Modules\Setup;
 use Illuminate\Support\Facades\Artisan;
 use Nobir\TheBackendWizard\Interfaces\ModuleInterface;
 use Nobir\TheBackendWizard\Modules\BaseModule;
-use Nobir\TheBackendWizard\Traits\PathManager;
+use Nobir\TheBackendWizard\Services\PathManager;
 
 class AdminPanelSetup extends BaseModule implements ModuleInterface
 {
