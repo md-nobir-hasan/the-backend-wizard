@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'asset_path' => public_path('assets/backend'),
     'view_path' => resource_path('views/backend'),
     'migration_path' => database_path('migrations/Backend'),
     'seeder_path' => database_path('seeders/Backend'),

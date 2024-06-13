@@ -3,21 +3,27 @@
 namespace Nobir\TheBackendWizard\Commands;
 
 use Illuminate\Console\Command;
-use Nobir\TheBackendWizard\Modules\AdminPanelSetup;
+use Nobir\TheBackendWizard\Modules\Setup\AdminPanelSetup;
 use Nobir\TheBackendWizard\Traits\DataProcessing;
 use Nobir\TheBackendWizard\Traits\PathManager;
 
 class TheBackendWizardCommand extends Command
 {
-    use DataProcessing, PathManager;
+    use DataProcessing;
 
     public $signature = 'nobir:backend {moduleName}';
 
     public $description = 'Enter a module name';
 
+    //modules name
+    const ADMINPANELSETUP = 'setup';
+
+    const USERMANAGEMENT = 'user-management';
+
     public function handle(): int
     {
         $modul_name = $this->argument('moduleName');
+        //transfer to specific module
         switch ($modul_name) {
             case self::ADMINPANELSETUP:
                 $this->adminPanelSetup();
@@ -27,9 +33,9 @@ class TheBackendWizardCommand extends Command
         return self::SUCCESS;
     }
 
+
     public function adminPanelSetup()
     {
-
-        (new AdminPanelSetup)->run([]);
+        (new AdminPanelSetup())->run([]);
     }
 }
