@@ -1,0 +1,222 @@
+/*CUSTOMIZER CSS*/
+/*Only for demo purpose*/
+:root {
+  /*for customizer*/
+  --indigo:      #6366F1;
+  --pink:        #EC4899;
+  --indigohover: #4F46E5;
+  --red:         #EF4444;
+  --redhover:    #DC2626;
+  --purple:      #8B5CF6;
+  --purplehover: #7C3AED;
+  --blue:        #3B82F6;
+  --bluehover:   #2563EB;
+  --yellowhover: #D97706;
+  --greenhover:  #059669;
+  --pinkhover:   #DB2777;
+  --white:       #ffffff;
+  --darkgray:    #141430;
+  --lightgray:   #98A5C0;
+  --darkness :   #0a0a18;
+}
+
+/*Sidebar light*/
+.sidebar-dark {
+	color: var(--lightgray);
+	background-color: var(--darkgray);
+}
+.sidebar-dark li a {
+  color: var(--lightgray);
+}
+.sidebar-dark li a:hover, .sidebar-dark li a.text-indigo-500 {
+	color: var(--white);
+}
+.sidebar-dark span.text-gray-700 {
+  color: var(--white);
+}
+.sidebar-dark .bg-gray-300 {
+	background-color: #1e1f48;
+}
+
+/*Background customizer*/
+.bg-reset-500 {
+	background: #1D4ED8;
+}
+/*Red*/
+.theme-red .text-indigo-500, .theme-red .text-indigo-700, .theme-red .hover\:text-indigo-500:hover, .theme-red .text-indigo-500, .theme-red .sidebar-dark li a:hover, .theme-red .sidebar-dark li a.text-gray-300 {
+  color: var(--red);
+}
+.theme-red .bg-indigo-500,.theme-red .bg-indigo-700, .theme-red .code-toolbar > .toolbar a {
+  background: var(--red);
+}
+.theme-red .border-indigo-500, .theme-red pre[class*="language-"]>code,.theme-red .border-indigo-700 {
+  border-color: var(--red);
+}
+.theme-red .hover\:text-gray-100:hover, .theme-red .hover\:text-white:hover {
+  color: var(--white);
+}
+.theme-red .bg-indigo-500, .theme-red .hover\:bg-indigo-600:hover, .theme-red .code-toolbar > .toolbar a:hover, .theme-red .focus\:bg-indigo-600:focus {
+  background: var(--redhover)
+}
+.theme-red .hover\:border-indigo-600:hover, .theme-red .focus\:border-indigo-600:focus {
+  border-color: var(--redhover)
+}
+.theme-red pre[class*="language-"]>code {
+	box-shadow: -1px 0px 0px 0px var(--redhover)
+}
+
+/*yellow*/
+.theme-yellow .text-indigo-500, .theme-yellow .text-indigo-700, .theme-yellow .hover\:text-indigo-500:hover, .theme-yellow .text-indigo-500, .theme-yellow .sidebar-dark li a:hover, .theme-yellow .sidebar-dark li a.text-gray-300 {
+  color: var(--yellow);
+}
+.theme-yellow .bg-indigo-500,.theme-yellow .bg-indigo-700, .theme-yellow .code-toolbar > .toolbar a {
+  background: var(--yellow);
+}
+.theme-yellow .border-indigo-500, .theme-yellow pre[class*="language-"]>code,.theme-yellow .border-indigo-700 {
+  border-color: var(--yellow);
+}
+.theme-yellow .hover\:text-gray-100:hover, .theme-yellow .hover\:text-white:hover {
+  color: var(--white);
+}
+.theme-yellow .bg-indigo-500, .theme-yellow .hover\:bg-indigo-600:hover, .theme-yellow .code-toolbar > .toolbar a:hover, .theme-yellow .focus\:bg-indigo-600:focus {
+  background: var(--yellowhover)
+}
+.theme-yellow .hover\:border-indigo-600:hover, .theme-yellow .focus\:border-indigo-600:focus {
+  border-color: var(--yellowhover)
+}
+.theme-yellow pre[class*="language-"]>code {
+  box-shadow: -1px 0px 0px 0px var(--yellowhover)
+}
+
+/*green*/
+.theme-green .text-indigo-500, .theme-green .text-indigo-700, .theme-green .hover\:text-indigo-500:hover, .theme-green .text-indigo-500, .theme-green .sidebar-dark li a:hover, .theme-green .sidebar-dark li a.text-gray-300 {
+  color: var(--green);
+}
+.theme-green .bg-indigo-500,.theme-green .bg-indigo-700, .theme-green .code-toolbar > .toolbar a {
+  background: var(--green);
+}
+.theme-green .border-indigo-500, .theme-green pre[class*="language-"]>code,.theme-green .border-indigo-700 {
+  border-color: var(--green);
+}
+.theme-green .hover\:text-gray-100:hover, .theme-green .hover\:text-white:hover {
+  color: var(--white);
+}
+.theme-green .bg-indigo-500, .theme-green .hover\:bg-indigo-600:hover, .theme-green .code-toolbar > .toolbar a:hover, .theme-green .focus\:bg-indigo-600:focus {
+  background: var(--greenhover)
+}
+.theme-green .hover\:border-indigo-600:hover, .theme-green .focus\:border-indigo-600:focus {
+  border-color: var(--greenhover)
+}
+.theme-green pre[class*="language-"]>code {
+  box-shadow: -1px 0px 0px 0px var(--greenhover)
+}
+
+/*blue*/
+.theme-blue .text-indigo-500, .theme-blue .text-indigo-700, .theme-blue .hover\:text-indigo-500:hover, .theme-blue .text-indigo-500, .theme-blue .sidebar-dark li a:hover, .theme-blue .sidebar-dark li a.text-gray-300 {
+  color: var(--blue);
+}
+.theme-blue .bg-indigo-500,.theme-blue .bg-indigo-700, .theme-blue .code-toolbar > .toolbar a {
+  background: var(--blue);
+}
+.theme-blue .border-indigo-500, .theme-blue pre[class*="language-"]>code,.theme-blue .border-indigo-700 {
+  border-color: var(--blue);
+}
+.theme-blue .hover\:text-gray-100:hover, .theme-blue .hover\:text-white:hover {
+  color: var(--white);
+}
+.theme-blue .bg-indigo-500, .theme-blue .hover\:bg-indigo-600:hover, .theme-blue .code-toolbar > .toolbar a:hover, .theme-blue .focus\:bg-indigo-600:focus {
+  background: var(--bluehover)
+}
+.theme-blue .hover\:border-indigo-600:hover, .theme-blue .focus\:border-indigo-600:focus {
+  border-color: var(--bluehover)
+}
+.theme-blue pre[class*="language-"]>code {
+  box-shadow: -1px 0px 0px 0px var(--bluehover)
+}
+
+/*purple*/
+.theme-purple .text-indigo-500, .theme-purple .text-indigo-700, .theme-purple .hover\:text-indigo-500:hover, .theme-purple .text-indigo-500, .theme-purple .sidebar-dark li a:hover, .theme-purple .sidebar-dark li a.text-gray-300 {
+  color: var(--purple);
+}
+.theme-purple .bg-indigo-500,.theme-purple .bg-indigo-700, .theme-purple .code-toolbar > .toolbar a {
+  background: var(--purple);
+}
+.theme-purple .border-indigo-500, .theme-purple pre[class*="language-"]>code,.theme-purple .border-indigo-700 {
+  border-color: var(--purple);
+}
+.theme-purple .hover\:text-gray-100:hover, .theme-purple .hover\:text-white:hover {
+  color: var(--white);
+}
+.theme-purple .bg-indigo-500, .theme-purple .hover\:bg-indigo-600:hover, .theme-purple .code-toolbar > .toolbar a:hover, .theme-purple .focus\:bg-indigo-600:focus {
+  background: var(--purplehover)
+}
+.theme-purple .hover\:border-indigo-600:hover, .theme-purple .focus\:border-indigo-600:focus {
+  border-color: var(--purplehover)
+}
+.theme-purple pre[class*="language-"]>code {
+  box-shadow: -1px 0px 0px 0px var(--purplehover)
+}
+
+/*pink*/
+.theme-pink .text-indigo-500, .theme-pink .text-indigo-700, .theme-pink .hover\:text-indigo-500:hover, .theme-pink .text-indigo-500, .theme-pink .sidebar-dark li a:hover, .theme-pink .sidebar-dark li a.text-gray-300 {
+  color: var(--pink);
+}
+.theme-pink .bg-indigo-500,.theme-pink .bg-indigo-700, .theme-pink .code-toolbar > .toolbar a {
+  background: var(--pink);
+}
+.theme-pink .border-indigo-500, .theme-pink pre[class*="language-"]>code,.theme-pink .border-indigo-700 {
+  border-color: var(--pink);
+}
+.theme-pink .hover\:text-gray-100:hover, .theme-pink .hover\:text-white:hover {
+  color: var(--white);
+}
+.theme-pink .bg-indigo-500, .theme-pink .hover\:bg-indigo-600:hover, .theme-pink .code-toolbar > .toolbar a:hover, .theme-pink .focus\:bg-indigo-600:focus {
+  background: var(--pinkhover)
+}
+.theme-pink .hover\:border-indigo-600:hover, .theme-pink .focus\:border-indigo-600:focus {
+  border-color: var(--pinkhover)
+}
+.theme-pink pre[class*="language-"]>code {
+  box-shadow: -1px 0px 0px 0px var(--pinkhover)
+}
+
+@media (min-width: 768px) {
+  .sidebar-compact {
+    z-index: 60;
+  }
+  .sidebar-compact .logo-compact{
+    display: inline-block;
+  }
+  .sidebar-compact:hover .logo-compact{
+    display: none !important;
+  }
+  .sidebar-compact .hidden-compact, .sidebar-compact:hover .logo-compact{
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    transition: visibility 0s, opacity 1.5s linear;
+  }
+  .sidebar-compact:hover .hidden-compact, .sidebar-compact .logo-compact {
+    visibility: visible;
+    height: auto;
+    width: auto;
+    opacity: 1;
+  }
+  .sidebar-compact a span, .sidebar-compact ul li ul, .sidebar-compact .box-banner {
+    display: none;
+  }
+  .sidebar-compact:hover a span {
+    display: inline-block;
+  }
+  .sidebar-compact:hover ul li ul, .sidebar-compact:hover .box-banner {
+    display: block;
+  }
+  .sidebar-compact:hover {
+    width: 16rem;
+  }
+}
+
+.dark :not(pre) > code[class*="language-"], .dark pre[class*="language-"] {
+  background: var(--darkness);
+}

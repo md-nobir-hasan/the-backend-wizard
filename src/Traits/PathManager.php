@@ -19,6 +19,7 @@ class PathManager
     public static $SERVICE_CLASS_PATH_KEY;
     public static $REQUESTS_PATH_KEY;
     public static $FACTORY_PATH_KEY;
+    public static $ROUTE_PATH_KEY;
 
 
     public function __construct()

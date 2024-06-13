@@ -27,6 +27,11 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
             '--tag' => 'backend-setup',
         ]);
         echo Artisan::output();
+        echo "Please install breeze and run' npm install' and 'npm run dev' and 'npm run build'";
 
+        $this->seederCall();
+    }
+    public function seederCall(){
+        
     }
 }

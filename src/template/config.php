@@ -9,4 +9,5 @@ return [
     'service_class_path' => app_path('Services/Backend'),
     'requests_path' => app_path('Http/Requests/Backend'),
     'factory_path' => database_path('factories/Backend'),
+    'route_path' => base_path('routes'),
 ];
