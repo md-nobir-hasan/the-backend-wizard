@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\File;
 
 class PathManager
 {
-
     public $paths;
+
     public $default_paths;
 
     // Dynamically assigned keys
@@ -21,7 +21,6 @@ class PathManager
     public static $FACTORY_PATH_KEY;
     public static $ROUTE_PATH_KEY;
 
-
     public function __construct()
     {
         //default path assign
@@ -30,7 +29,7 @@ class PathManager
 
         //path key load from default configuration files
         foreach ($dpaths as $key => $value) {
-            $const_key = strtoupper($key) . '_KEY';
+            $const_key = strtoupper($key).'_KEY';
             self::${$const_key} = $key;
         }
 
@@ -45,7 +44,7 @@ class PathManager
 
     public function defaultConfigPaths()
     {
-        return include(__DIR__ . "/../template/config.php");
+        return include __DIR__.'/../template/config.php';
     }
 
     public function check()
@@ -58,17 +57,20 @@ class PathManager
         if (isset($this->paths[$path_key])) {
             $path = $this->paths[$path_key];
             $this->dirHandling($path);
+
             return $path;
         } else {
             $dpath = $this->default_paths[$path_key];
             $this->dirHandling($dpath);
             echo "$path_key is not define in backend config file. Default path $dpath is used by default";
+
             return $dpath;
         }
     }
 
-    public function dirHandling($path){
-        if (!File::exists($path)) {
+    public function dirHandling($path)
+    {
+        if (! File::exists($path)) {
             File::makeDirectory($path, 0755, true);
         }
     }
