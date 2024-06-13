@@ -25,14 +25,14 @@ class TheBackendWizardServiceProvider extends ServiceProvider
 
         //publishing configure file
         $this->publishes([
-            __DIR__.'/template/config.php' => config_path('backend.php'),//configure files
+            __DIR__.'/template/config.php' => config_path('backend.php'), //configure files
         ]);
 
         //publishing backend setup file
         $this->publishes([
-            __DIR__.'/Modules/Setup/assets' => $pathManager->specificPathExtract($pathManager::$ASSET_PATH_KEY),//assets files
-            __DIR__.'/Modules/Setup/views' => $pathManager->specificPathExtract($pathManager::$VIEW_PATH_KEY),//view files
-            __DIR__.'/Modules/Setup/Controllers' => $pathManager->specificPathExtract($pathManager::$CONTROLLER_PATH_KEY),//view files
-        ],'backend-setup');
+            __DIR__.'/Modules/Setup/assets' => $pathManager->specificPathExtract($pathManager::$ASSET_PATH_KEY), //assets files
+            __DIR__.'/Modules/Setup/views' => $pathManager->specificPathExtract($pathManager::$VIEW_PATH_KEY), //view files
+            __DIR__.'/Modules/Setup/Controllers' => $pathManager->specificPathExtract($pathManager::$CONTROLLER_PATH_KEY), //view files
+        ], 'backend-setup');
     }
 }

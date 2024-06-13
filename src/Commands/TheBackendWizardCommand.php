@@ -5,7 +5,6 @@ namespace Nobir\TheBackendWizard\Commands;
 use Illuminate\Console\Command;
 use Nobir\TheBackendWizard\Modules\Setup\AdminPanelSetup;
 use Nobir\TheBackendWizard\Traits\DataProcessing;
-use Nobir\TheBackendWizard\Traits\PathManager;
 
 class TheBackendWizardCommand extends Command
 {
@@ -32,7 +31,6 @@ class TheBackendWizardCommand extends Command
 
         return self::SUCCESS;
     }
-
 
     public function adminPanelSetup()
     {

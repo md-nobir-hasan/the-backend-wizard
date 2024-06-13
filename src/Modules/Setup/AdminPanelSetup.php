@@ -10,10 +10,12 @@ use Nobir\TheBackendWizard\Traits\PathManager;
 class AdminPanelSetup extends BaseModule implements ModuleInterface
 {
     public $pathManager;
-   public function __construct()
-   {
-    $this->pathManager = new PathManager();
-   }
+
+    public function __construct()
+    {
+        $this->pathManager = new PathManager();
+    }
+
     public $path;
 
     public function command()
@@ -23,7 +25,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
     public function run($data)
     {
-        Artisan::call('vendor:publish',[
+        Artisan::call('vendor:publish', [
             '--tag' => 'backend-setup',
         ]);
         echo Artisan::output();
