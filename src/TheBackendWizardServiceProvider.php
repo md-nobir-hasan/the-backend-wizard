@@ -4,7 +4,7 @@ namespace Nobir\TheBackendWizard;
 
 use Illuminate\Support\ServiceProvider;
 use Nobir\TheBackendWizard\Commands\TheBackendWizardCommand;
-use Nobir\TheBackendWizard\Traits\PathManager;
+use Nobir\TheBackendWizard\Services\PathManager;
 
 class TheBackendWizardServiceProvider extends ServiceProvider
 {

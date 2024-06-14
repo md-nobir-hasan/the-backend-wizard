@@ -3,9 +3,11 @@
 namespace Nobir\TheBackendWizard\Services;
 
 use Illuminate\Support\Facades\File;
+use Nobir\TheBackendWizard\Traits\FileModifying;
 
 class PathManager
 {
+    use FileModifying;
     public $paths;
 
     public $default_paths;
@@ -81,5 +83,17 @@ class PathManager
         if (! File::exists($path)) {
             File::makeDirectory($path, 0755, true);
         }
+    }
+
+    public function extractNamespace($path)
+    {
+        $content = $this->getContent($path);
+        // Use a regular expression to match the namespace declaration
+        if (preg_match('/namespace\s+([^;]+);/', $content, $matches)) {
+            return $matches[1];
+        }
+
+        // Return null if no namespace declaration is found
+        return null;
     }
 }
