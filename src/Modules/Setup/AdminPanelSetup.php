@@ -27,15 +27,19 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
     public function run($data)
     {
+        $database_seeder_path = database_path('migrations/DatabaseSeeder.php');
+        $user_seeder_path = $this->pathManager->specificPathExtract($this->pathManager::$SEEDER_PATH_KEY) . "/UserSeeder.php";
+        dd($user_seeder_path,database_path('seeders'));
+        $user_seeder_namespace = $this->pathManager->extractNamespace($user_seeder_path);
+        //User seeder Creation
+        // $this->modify()
         // Artisan::call('vendor:publish', [
         //     '--tag' => 'backend-setup',
         // ]);
         // echo Artisan::output();
 
         //DatabaseSeeder modification
-        $database_seeder_path = database_path('migrations/DatabaseSeeder.php');
-        $user_seeder_path = $this->pathManager->specificPathExtract($this->pathManager::$SEEDER_PATH_KEY)."/UserSeeder.php";
-        $user_seeder_namespace = $this->pathManager->extractNamespace($user_seeder_path);
+
         $array_for_replace = [
             ['searching_text' => "}", 'inserting_position'=>2, 'inserting_text'=> "\t\t\t \$this->call([$user_seeder_namespace\\UserSeeder::class])"],
         ];

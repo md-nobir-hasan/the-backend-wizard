@@ -57,10 +57,6 @@ class PathManager
         return include __DIR__.'/../template/config.php';
     }
 
-    public function check()
-    {
-        dd(self::$ASSET_PATH_KEY);
-    }
 
     public function specificPathExtract($path_key)
     {
