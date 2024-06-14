@@ -23,8 +23,9 @@ trait FileModifying
 
     public function getContent($get_content_path, $array_for_replace = null)
     {
-        if(!File::exists($get_content_path)){
+        if (! File::exists($get_content_path)) {
             echo "The path does't exist. line 27, file 'FileModifiying.php'. ($get_content_path)";
+
             return false;
         }
 
@@ -33,6 +34,7 @@ trait FileModifying
         if ($array_for_replace) {
             $content = $this->insertOrReplacePartOfContent($content, $array_for_replace);
         }
+
         return $content;
     }
 
@@ -47,6 +49,7 @@ trait FileModifying
                 return false;
             }
         }
+
         return $pos;
     }
 
@@ -68,11 +71,12 @@ trait FileModifying
                     echo 'Inserting position is not found';
                 }
             } elseif (isset($value['inserting_text'])) {
-                $content = $content . $value['inserting_text'];
-            }else{
+                $content = $content.$value['inserting_text'];
+            } else {
                 echo 'There is no inserting text';
             }
         }
+
         return $content;
     }
 }

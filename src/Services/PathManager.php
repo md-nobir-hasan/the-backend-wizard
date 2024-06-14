@@ -8,6 +8,7 @@ use Nobir\TheBackendWizard\Traits\FileModifying;
 class PathManager
 {
     use FileModifying;
+
     public $paths;
 
     public $default_paths;
