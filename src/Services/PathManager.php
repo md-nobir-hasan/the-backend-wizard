@@ -33,6 +33,7 @@ class PathManager
     public static $APP_SERVICE_PROVIDER_PATH_KEY;
     public static $COMPONENT_CLASS_PATH_KEY;
     public static $VIEW_COMPONENT_PATH_KEY;
+    public static $MODEL_PATH_KEY;
 
     public function __construct()
     {
@@ -84,15 +85,22 @@ class PathManager
         }
     }
 
-    // public function extractNamespace($path)
-    // {
-    //     $content = $this->getContent($path);
-    //     // Use a regular expression to match the namespace declaration
-    //     if (preg_match('/namespace\s+([^;]+);/', $content, $matches)) {
-    //         return $matches[1];
-    //     }
+   public function pathPrefixExtract($path_key, $startFrom){
+        $path = $this->paths[$path_key];
 
-    //     // Return null if no namespace declaration is found
-    //     return null;
-    // }
+        // Normalize the directory separators
+        $normalizedPath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
+
+        // Find the starting point in the path
+        $startPos = strpos($normalizedPath, DIRECTORY_SEPARATOR . $startFrom . DIRECTORY_SEPARATOR);
+
+        if ($startPos !== false) {
+            // The specified starting point was not found in the path
+            $pseudo_path = substr($normalizedPath, $startPos+ str($startFrom)->length()+2); // +1 to skip the leading directory separator
+        } else {
+            $pseudo_path = false;
+        }
+
+        return $pseudo_path;
+    }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\File;
 class FileModifier
 {
     protected $content;
+    protected $getContentPath;
     protected $searchingText = '';
     protected $matching = 1;
     protected $insertingPosition = 0;
@@ -20,7 +21,7 @@ class FileModifier
         if (!File::exists($getContentPath)) {
             throw new \InvalidArgumentException("Source file does not exist: $getContentPath");
         }
-
+        $this->getContentPath = $getContentPath;
         $this->content = File::get($getContentPath);
     }
 
@@ -64,8 +65,11 @@ class FileModifier
         return $this;
     }
 
-    public function save($putContentPath)
+    public function save($putContentPath=null)
     {
+        if(!$putContentPath){
+            $putContentPath = $this->getContentPath;
+        }
         File::put($putContentPath, $this->content);
         return true;
     }

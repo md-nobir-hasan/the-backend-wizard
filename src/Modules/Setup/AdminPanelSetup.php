@@ -28,27 +28,30 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
     public function run($data)
     {
-        Artisan::call('vendor:publish', [
-            '--tag' => 'backend-setup',
-        ]);
+        // Artisan::call('vendor:publish', [
+        //     '--tag' => 'backend-setup',
+        // ]);
 
-        echo Artisan::output();
+        // echo Artisan::output();
 
-        //Modifiying route(web.php)
-        $this->routeModification();
+        // //Modifiying route(web.php)
+        // $this->routeModification();
 
-        //Modifiying model (User.php)
-        $this->modelModification();
+        // //Modifiying model (User.php)
+        // $this->modelModification();
 
-        //Modifiying migration (User.php)
-        $this->DatabaseSeederModification();
+        // //Modifiying migration (User.php)
+        // $this->DatabaseSeederModification();
 
-        //Modifiying DatabaseSeeder
-        $this->migrationModification();
+        // //Modifiying DatabaseSeeder
+        // $this->migrationModification();
 
         // //Modifiying AppServiceProvider
         $this->appServiceProviderModification();
-        
+
+        //Migration and Seeder
+        $this->migrationAndSeeder();
+
     }
 
     public function routeModification(){
@@ -74,7 +77,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         // $user_migration_path = $this->pm->specificPathExtract($this->pm::$ROUTE_PATH_KEY);
 
         (new FileModifier($user_migration_path))->searchingText("name');")
-            ->insertAfter()->insertingText("\n\t\t\t\$table->string('img',500);")
+            ->insertAfter()->insertingText("\n\t\t\t\$table->string('img',500)->nullable();")
             ->save($user_migration_path);
     }
 
@@ -91,11 +94,26 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
     public function appServiceProviderModification(){
         $app_service_provider_path = $this->pm->specificPathExtract($this->pm::$APP_SERVICE_PROVIDER_PATH_KEY);
 
-        (new FileModifier($app_service_provider_path))->searchingText('App\Providers;')->insertAfter()
-        ->insertingText("\n\nuse Illuminate\Support\Facades\Cache;")->searchingText('{', 3)
-        ->insertAfter()->insertingText("\n\t\t// Cache::forget('nsidebar');\n\t\t// Cache::rememberForever('nsidebar', function () {\n\t\t\t
-        //return NSidebar::with('child_bar')->where('is_parent', true)->where('status', 'Active')->get();
-        \n\t\t// });\n\t\t\$sidebar_lists = Cache::get('nsidebar') ?? [];\n\t\tview()->share('sidebar_lists',\$sidebar_lists);")
+        (new FileModifier($app_service_provider_path))->searchingText('App\Providers;')->insertAfter()->insertingText("\n\nuse Illuminate\Support\Facades\Cache;")
+        ->searchingText('{', 3)->insertAfter()->insertingText("\n\t\t\$sidebar_lists = Cache::get('nsidebar') ?? [];\n\t\tview()->share('sidebar_lists',\$sidebar_lists);")
         ->save($app_service_provider_path);
+        $this->migrationFolderLoading($app_service_provider_path);
+    }
+
+    public function migrationFolderLoading($app_service_provider_path){
+        $migration_prefix = $this->pm->pathPrefixExtract($this->pm::$MIGRATION_PATH_KEY, 'migrations');
+        if($migration_prefix){
+            (new FileModifier($app_service_provider_path))->searchingText('{',3)->insertAfter()->insertingText("\n\t\t\$this->loadMigrationsFrom([\n\t\t\tdatabase_path('migrations'),\n\t\t\tdatabase_path('migrations/$migration_prefix'),\n\t\t]);")
+            ->save();
+        }
+    }
+
+    public function migrationAndSeeder(){
+        try{
+            Artisan::call('migrate:fresh --seed');
+            echo Artisan::output();
+        }catch(\Exception $e){
+            echo $e;
+        }
     }
 }

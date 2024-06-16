@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('access');
             $table->string('route')->nullable();
             $table->boolean('is_parent')->nullable();
-            $table->foreignIdFor(\App\Models\NSidebar::class)->nullable();
+            $table->foreignIdFor(\App\Models\Backend\NSidebar::class)->nullable();
             $table->unsignedBigInteger('serial');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->softDeletes();

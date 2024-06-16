@@ -36,6 +36,8 @@ class TheBackendWizardServiceProvider extends ServiceProvider
             __DIR__.'/Modules/Setup/Controllers' => $pathManager->specificPathExtract($pathManager::$CONTROLLER_PATH_KEY), //view files
             __DIR__.'/Modules/Setup/routes' => $pathManager->specificPathExtract($pathManager::$ROUTE_PATH_KEY), //view files
             __DIR__.'/Modules/Setup/seeder' => $pathManager->specificPathExtract($pathManager::$SEEDER_PATH_KEY), //view files
+            __DIR__.'/Modules/Setup/migrations' => $pathManager->specificPathExtract($pathManager::$MIGRATION_PATH_KEY), //view files
+            __DIR__.'/Modules/Setup/models' => $pathManager->specificPathExtract($pathManager::$MODEL_PATH_KEY), //view files
         ], 'backend-setup');
 
     }
