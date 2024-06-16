@@ -7,7 +7,7 @@ use Nobir\TheBackendWizard\Traits\FileModifying;
 
 class PathManager
 {
-    use FileModifying;
+    // use FileModifying;
     public $paths;
 
     public $default_paths;
@@ -81,15 +81,15 @@ class PathManager
         }
     }
 
-    public function extractNamespace($path)
-    {
-        $content = $this->getContent($path);
-        // Use a regular expression to match the namespace declaration
-        if (preg_match('/namespace\s+([^;]+);/', $content, $matches)) {
-            return $matches[1];
-        }
+    // public function extractNamespace($path)
+    // {
+    //     $content = $this->getContent($path);
+    //     // Use a regular expression to match the namespace declaration
+    //     if (preg_match('/namespace\s+([^;]+);/', $content, $matches)) {
+    //         return $matches[1];
+    //     }
 
-        // Return null if no namespace declaration is found
-        return null;
-    }
+    //     // Return null if no namespace declaration is found
+    //     return null;
+    // }
 }
