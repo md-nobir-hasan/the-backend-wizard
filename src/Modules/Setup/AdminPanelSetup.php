@@ -28,22 +28,22 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
     public function run($data)
     {
-        // $this->modify()
-        // Artisan::call('vendor:publish', [
-        //     '--tag' => 'backend-setup',
-        // ]);
-        // echo Artisan::output();
+        Artisan::call('vendor:publish', [
+            '--tag' => 'backend-setup',
+        ]);
+        echo Artisan::output();
 
-        //Modifiying DatabaseSeeder
+        //Modifiying route(web.php)
         $this->routeModification();
 
-        //Modifiying DatabaseSeeder
+        //Modifiying model (User.php)
+        $this->modelModification();
+
+        //Modifiying migration (User.php)
         $this->DatabaseSeederModification();
 
         //Modifiying DatabaseSeeder
-        // $this->DatabaseSeederModification();
-
-
+        $this->migrationModification();
 
     }
 
@@ -53,8 +53,28 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
 
         (new FileModifier($web_path))->searchingText('<?php')
-            ->insertAfter()->insertingText("\n require './backend.php'; ")
+            ->insertAfter()->insertingText("\nrequire 'backend.php'; ")
             ->save($web_path);
+    }
+
+    public function modelModification(){
+        $user_migration_path = app_path('models/User.php');
+        // $user_migration_path = $this->pm->specificPathExtract($this->pm::$ROUTE_PATH_KEY);
+
+
+        (new FileModifier($user_migration_path))->searchingText("'name',")
+            ->insertAfter()->insertingText("\n\t\t'img',")
+            ->save($user_migration_path);
+    }
+
+    public function migrationModification(){
+        $user_migration_path = database_path('migrations/0001_01_01_000000_create_users_table.php');
+        // $user_migration_path = $this->pm->specificPathExtract($this->pm::$ROUTE_PATH_KEY);
+
+
+        (new FileModifier($user_migration_path))->searchingText("name');")
+            ->insertAfter()->insertingText("\n\t\t\t\$table->string('img',500);")
+            ->save($user_migration_path);
     }
 
     public function DatabaseSeederModification(){
