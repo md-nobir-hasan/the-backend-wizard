@@ -31,6 +31,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         Artisan::call('vendor:publish', [
             '--tag' => 'backend-setup',
         ]);
+        
         echo Artisan::output();
 
         //Modifiying route(web.php)
@@ -45,9 +46,8 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         //Modifiying DatabaseSeeder
         $this->migrationModification();
 
-        //Modifiying AppServiceProvider
+        // //Modifiying AppServiceProvider
         $this->appServiceProviderModification();
-
     }
 
     public function routeModification(){
@@ -88,16 +88,16 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         (new FileModifier($database_seeder_path))->searchingText('{', 2)
             ->insertAfter()->insertingText("\n\t\t\t\$this->call(\\$user_seeder_namespace::class);")
             ->save($database_seeder_path);
-
     }
+
     public function appServiceProviderModification(){
-        $app_service_provider_path = $this->pm->specificPathExtract($this->pm::$APP_SERVICE_PROVIDER_PATH);
+        $app_service_provider_path = $this->pm->specificPathExtract($this->pm::$APP_SERVICE_PROVIDER_PATH_KEY);
 
-        (new FileModifier($app_service_provider_path))->searchingText('{', 3)
-            ->insertAfter()->insertingText("\n\t\t// Cache::forget('nsidebar');\n // Cache::rememberForever('nsidebar', function () {\n\t\t\t
-        //     return NSidebar::with('child_bar')->where('is_parent', true)->where('status', 'Active')->get();
-        // \n\t\t});\n\t\t\$sidebar_lists = Cache::get('nsidebar') ?? [];\n\t\tview()->share('sidebar_lists',\$sidebar_lists);")
-            ->save($app_service_provider_path);
-
+        (new FileModifier($app_service_provider_path))->searchingText('App\Providers;')->insertAfter()
+        ->insertingText("\n\nuse Illuminate\Support\Facades\Cache;")->searchingText('{', 3)
+        ->insertAfter()->insertingText("\n\t\t// Cache::forget('nsidebar');\n\t\t// Cache::rememberForever('nsidebar', function () {\n\t\t\t
+        //return NSidebar::with('child_bar')->where('is_parent', true)->where('status', 'Active')->get();
+        \n\t\t// });\n\t\t\$sidebar_lists = Cache::get('nsidebar') ?? [];\n\t\tview()->share('sidebar_lists',\$sidebar_lists);")
+        ->save($app_service_provider_path);
     }
 }

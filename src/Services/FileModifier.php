@@ -52,6 +52,7 @@ class FileModifier
     public function insertingText($text)
     {
         $this->insertingText = $text;
+        $this->applyModification();
         return $this;
     }
 
@@ -65,7 +66,6 @@ class FileModifier
 
     public function save($putContentPath)
     {
-        $this->applyModification();
         File::put($putContentPath, $this->content);
         return true;
     }
