@@ -13,12 +13,12 @@ trait PathToNamespaceExtract
         $normalizedPath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $filePath);
 
         // Find the starting point in the path
-        $startPos = strpos($normalizedPath, DIRECTORY_SEPARATOR . $startFrom . DIRECTORY_SEPARATOR);
+        $startPos = strpos($normalizedPath, DIRECTORY_SEPARATOR.$startFrom.DIRECTORY_SEPARATOR);
 
         if ($startPos !== false) {
             // The specified starting point was not found in the path
             $pseudo_path = substr($normalizedPath, $startPos + 1); // +1 to skip the leading directory separator
-        }else{
+        } else {
             $pseudo_path = $normalizedPath;
         }
 
@@ -29,7 +29,7 @@ trait PathToNamespaceExtract
 
         // Convert directory separators to namespace separators
         $namespace = str_replace(DIRECTORY_SEPARATOR, '\\', $relativePathWithoutExtension);
+
         return Str()->title($namespace);
     }
 }
-

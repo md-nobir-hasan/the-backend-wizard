@@ -31,8 +31,8 @@ class TheBackendWizardServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/Modules/Setup/assets' => $pathManager->specificPathExtract($pathManager::$ASSET_PATH_KEY), //assets files
             __DIR__.'/Modules/Setup/views' => $pathManager->specificPathExtract($pathManager::$VIEW_PATH_KEY), //view files
-            __DIR__. '/Modules/Setup/components' => $pathManager->specificPathExtract($pathManager::$VIEW_COMPONENT_PATH_KEY), //view component files
-            __DIR__. '/Modules/Setup/component-class' => $pathManager->specificPathExtract($pathManager::$COMPONENT_CLASS_PATH_KEY), //view component class files
+            __DIR__.'/Modules/Setup/components' => $pathManager->specificPathExtract($pathManager::$VIEW_COMPONENT_PATH_KEY), //view component files
+            __DIR__.'/Modules/Setup/component-class' => $pathManager->specificPathExtract($pathManager::$COMPONENT_CLASS_PATH_KEY), //view component class files
             __DIR__.'/Modules/Setup/Controllers' => $pathManager->specificPathExtract($pathManager::$CONTROLLER_PATH_KEY), //view files
             __DIR__.'/Modules/Setup/routes' => $pathManager->specificPathExtract($pathManager::$ROUTE_PATH_KEY), //view files
             __DIR__.'/Modules/Setup/seeder' => $pathManager->specificPathExtract($pathManager::$SEEDER_PATH_KEY), //view files

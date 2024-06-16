@@ -18,7 +18,9 @@ class TheBackendWizardCommand extends Command
 
     //modules name
     const ADMINPANELSETUP = 'setup';
+
     const USERMANAGEMENT = 'user-management';
+
     const SIDEBAR_REFRESH = 'sidebar-refresh';
 
     public function handle(): int

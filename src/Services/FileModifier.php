@@ -7,18 +7,26 @@ use Illuminate\Support\Facades\File;
 class FileModifier
 {
     protected $content;
+
     protected $getContentPath;
+
     protected $searchingText = '';
+
     protected $matching = 1;
+
     protected $insertingPosition = 0;
+
     protected $insertingText = '';
+
     protected $removeStart = '';
+
     protected $removeEnd = '';
+
     protected $removeText = '';
 
     public function __construct($getContentPath)
     {
-        if (!File::exists($getContentPath)) {
+        if (! File::exists($getContentPath)) {
             throw new \InvalidArgumentException("Source file does not exist: $getContentPath");
         }
         $this->getContentPath = $getContentPath;
@@ -29,24 +37,28 @@ class FileModifier
     {
         $this->searchingText = $text;
         $this->matching = $match;
+
         return $this;
     }
 
     public function replace()
     {
         $this->insertingPosition = 0;
+
         return $this;
     }
 
     public function insertAfter()
     {
         $this->insertingPosition = 1;
+
         return $this;
     }
 
     public function insertBefore()
     {
         $this->insertingPosition = -1;
+
         return $this;
     }
 
@@ -54,6 +66,7 @@ class FileModifier
     {
         $this->insertingText = $text;
         $this->applyModification();
+
         return $this;
     }
 
@@ -62,15 +75,17 @@ class FileModifier
         $this->removeStart = $startText;
         $this->removeEnd = $endText;
         $this->removeText = $text;
+
         return $this;
     }
 
-    public function save($putContentPath=null)
+    public function save($putContentPath = null)
     {
-        if(!$putContentPath){
+        if (! $putContentPath) {
             $putContentPath = $this->getContentPath;
         }
         File::put($putContentPath, $this->content);
+
         return true;
     }
 
@@ -110,6 +125,7 @@ class FileModifier
             }
             $offset = $pos + 1;
         }
+
         return $pos;
     }
 

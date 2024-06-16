@@ -54,7 +54,8 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
     }
 
-    public function routeModification(){
+    public function routeModification()
+    {
         $web_path = base_path('routes/web.php');
         // $web_path = $this->pm->specificPathExtract($this->pm::$ROUTE_PATH_KEY);
 
@@ -63,7 +64,8 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
             ->save($web_path);
     }
 
-    public function modelModification(){
+    public function modelModification()
+    {
         $user_migration_path = app_path('models/User.php');
         // $user_migration_path = $this->pm->specificPathExtract($this->pm::$ROUTE_PATH_KEY);
 
@@ -72,7 +74,8 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
             ->save($user_migration_path);
     }
 
-    public function migrationModification(){
+    public function migrationModification()
+    {
         $user_migration_path = database_path('migrations/0001_01_01_000000_create_users_table.php');
         // $user_migration_path = $this->pm->specificPathExtract($this->pm::$ROUTE_PATH_KEY);
 
@@ -81,8 +84,9 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
             ->save($user_migration_path);
     }
 
-    public function DatabaseSeederModification(){
-        $user_seeder_path = $this->pm->specificPathExtract($this->pm::$SEEDER_PATH_KEY) . "/UserSeeder.php";
+    public function DatabaseSeederModification()
+    {
+        $user_seeder_path = $this->pm->specificPathExtract($this->pm::$SEEDER_PATH_KEY).'/UserSeeder.php';
         $user_seeder_namespace = $this->pathToNamespace($user_seeder_path, 'database');
         $database_seeder_path = database_path('seeders/DatabaseSeeder.php');
 
@@ -91,28 +95,31 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
             ->save($database_seeder_path);
     }
 
-    public function appServiceProviderModification(){
+    public function appServiceProviderModification()
+    {
         $app_service_provider_path = $this->pm->specificPathExtract($this->pm::$APP_SERVICE_PROVIDER_PATH_KEY);
 
         (new FileModifier($app_service_provider_path))->searchingText('App\Providers;')->insertAfter()->insertingText("\n\nuse Illuminate\Support\Facades\Cache;")
-        ->searchingText('{', 3)->insertAfter()->insertingText("\n\t\t\$sidebar_lists = Cache::get('nsidebar') ?? [];\n\t\tview()->share('sidebar_lists',\$sidebar_lists);")
-        ->save($app_service_provider_path);
+            ->searchingText('{', 3)->insertAfter()->insertingText("\n\t\t\$sidebar_lists = Cache::get('nsidebar') ?? [];\n\t\tview()->share('sidebar_lists',\$sidebar_lists);")
+            ->save($app_service_provider_path);
         $this->migrationFolderLoading($app_service_provider_path);
     }
 
-    public function migrationFolderLoading($app_service_provider_path){
+    public function migrationFolderLoading($app_service_provider_path)
+    {
         $migration_prefix = $this->pm->pathPrefixExtract($this->pm::$MIGRATION_PATH_KEY, 'migrations');
-        if($migration_prefix){
-            (new FileModifier($app_service_provider_path))->searchingText('{',3)->insertAfter()->insertingText("\n\t\t\$this->loadMigrationsFrom([\n\t\t\tdatabase_path('migrations'),\n\t\t\tdatabase_path('migrations/$migration_prefix'),\n\t\t]);")
-            ->save();
+        if ($migration_prefix) {
+            (new FileModifier($app_service_provider_path))->searchingText('{', 3)->insertAfter()->insertingText("\n\t\t\$this->loadMigrationsFrom([\n\t\t\tdatabase_path('migrations'),\n\t\t\tdatabase_path('migrations/$migration_prefix'),\n\t\t]);")
+                ->save();
         }
     }
 
-    public function migrationAndSeeder(){
-        try{
+    public function migrationAndSeeder()
+    {
+        try {
             Artisan::call('migrate:fresh --seed');
             echo Artisan::output();
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             echo $e;
         }
     }

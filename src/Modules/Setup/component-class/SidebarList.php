@@ -9,7 +9,9 @@ use Illuminate\View\Component;
 class SidebarList extends Component
 {
     public $sidebar_list;
+
     public $ml;
+
     /**
      * Create a new component instance.
      */
@@ -26,7 +28,7 @@ class SidebarList extends Component
     {
         $n['active'] = '';
         $n['open'] = false;
-        if (request()->routeIs($this->sidebar_list->route . '*')) {
+        if (request()->routeIs($this->sidebar_list->route.'*')) {
             $n['active'] = 'active';
             $n['open'] = true;
         }
