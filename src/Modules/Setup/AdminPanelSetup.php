@@ -31,7 +31,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         Artisan::call('vendor:publish', [
             '--tag' => 'backend-setup',
         ]);
-        
+
         echo Artisan::output();
 
         //Modifiying route(web.php)
@@ -48,12 +48,12 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
         // //Modifiying AppServiceProvider
         $this->appServiceProviderModification();
+        
     }
 
     public function routeModification(){
         $web_path = base_path('routes/web.php');
         // $web_path = $this->pm->specificPathExtract($this->pm::$ROUTE_PATH_KEY);
-
 
         (new FileModifier($web_path))->searchingText('<?php')
             ->insertAfter()->insertingText("\nrequire 'backend.php'; ")
@@ -64,7 +64,6 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         $user_migration_path = app_path('models/User.php');
         // $user_migration_path = $this->pm->specificPathExtract($this->pm::$ROUTE_PATH_KEY);
 
-
         (new FileModifier($user_migration_path))->searchingText("'name',")
             ->insertAfter()->insertingText("\n\t\t'img',")
             ->save($user_migration_path);
@@ -73,7 +72,6 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
     public function migrationModification(){
         $user_migration_path = database_path('migrations/0001_01_01_000000_create_users_table.php');
         // $user_migration_path = $this->pm->specificPathExtract($this->pm::$ROUTE_PATH_KEY);
-
 
         (new FileModifier($user_migration_path))->searchingText("name');")
             ->insertAfter()->insertingText("\n\t\t\t\$table->string('img',500);")
