@@ -10,4 +10,7 @@ return [
     'requests_path' => app_path('Http/Requests/Backend'),
     'factory_path' => database_path('factories/Backend'),
     'route_path' => base_path('routes'),
+    'app_service_provider_path' => app_path('Providers/AppServiceProvider.php'),
+    'component_class_path' => app_path('View/Components'),
+    'view_component_path' => resource_path('views/components'),
 ];

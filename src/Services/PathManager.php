@@ -30,6 +30,9 @@ class PathManager
     public static $FACTORY_PATH_KEY;
 
     public static $ROUTE_PATH_KEY;
+    public static $APP_SERVICE_PROVIDER_PATH;
+    public static $COMPONENT_CLASS_PATH;
+    public static $VIEW_COMPONENT_PATH;
 
     public function __construct()
     {
