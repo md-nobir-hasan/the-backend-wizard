@@ -28,23 +28,23 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
     public function run($data)
     {
-        // Artisan::call('vendor:publish', [
-        //     '--tag' => 'backend-setup',
-        // ]);
+        Artisan::call('vendor:publish', [
+            '--tag' => 'backend-setup',
+        ]);
 
-        // echo Artisan::output();
+        echo Artisan::output();
 
-        // //Modifiying route(web.php)
-        // $this->routeModification();
+        //Modifiying route(web.php)
+        $this->routeModification();
 
-        // //Modifiying model (User.php)
-        // $this->modelModification();
+        //Modifiying model (User.php)
+        $this->modelModification();
 
-        // //Modifiying migration (User.php)
-        // $this->DatabaseSeederModification();
+        //Modifiying migration (User.php)
+        $this->DatabaseSeederModification();
 
-        // //Modifiying DatabaseSeeder
-        // $this->migrationModification();
+        //Modifiying DatabaseSeeder
+        $this->migrationModification();
 
         // //Modifiying AppServiceProvider
         $this->appServiceProviderModification();
