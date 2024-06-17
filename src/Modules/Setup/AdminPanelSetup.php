@@ -120,7 +120,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
             Artisan::call('migrate:fresh --seed');
             echo Artisan::output();
         } catch (\Exception $e) {
-            echo $e;
+            echo "Migration and seeding can't be done";
         }
     }
 }

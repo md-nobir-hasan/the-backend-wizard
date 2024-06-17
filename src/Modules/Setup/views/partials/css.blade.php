@@ -1,3 +1,3 @@
-@vite(['resources/css/app.css','resources/css/css/style.css', 'resources/js/app.js'])
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 <link rel="stylesheet" href="{{asset('assets/backend/css/style.css')}}">
 <link rel="stylesheet" href="{{asset('assets/backend/css/customizer.css')}}">
