@@ -14,15 +14,7 @@ class SidebarSeeder extends Seeder
     public function run(): void
     {
         DB::table('n_sidebars')->insert([
-            [
-                'title' => 'Dashboard',
-                'access' => 'Dashboard',
-                'route' => 'dashboard',
-                'n_sidebar_id' => NULL,
-                'is_parent' => true,
-                'serial' => 1,
-                'status' => 'Active'
-            ],
+
         ]);
     }
 }

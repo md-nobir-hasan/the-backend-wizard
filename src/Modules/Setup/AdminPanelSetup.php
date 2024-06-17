@@ -83,7 +83,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
             ->insertAfter()->insertingText("\n\t\t\t\$table->string('img',500)->nullable();")
             ->save($user_migration_path);
     }
-
+ 
     public function DatabaseSeederModification()
     {
         $seeder_path = $this->pm->specificPathExtract($this->pm::$SEEDER_PATH_KEY);
@@ -94,7 +94,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         $database_seeder_path = database_path('seeders/DatabaseSeeder.php');
 
         (new FileModifier($database_seeder_path))->searchingText('{', 2)
-            ->insertAfter()->insertingText("\n\t\t\t\$this->call([\n\t\t\t\t\\$user_seeder_namespace::class,\n\t\t\t\t\\$sidebar_seeder_namespace::class\n\t\t\t]);")
+            ->insertAfter()->insertingText("\n\t\t\$this->call([\n\t\t\t\\$user_seeder_namespace::class,\n\t\t\t\\$sidebar_seeder_namespace::class\n\t\t]);")
             ->save($database_seeder_path);
     }
 
