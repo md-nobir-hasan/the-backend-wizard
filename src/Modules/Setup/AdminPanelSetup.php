@@ -86,12 +86,15 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
     public function DatabaseSeederModification()
     {
-        $user_seeder_path = $this->pm->specificPathExtract($this->pm::$SEEDER_PATH_KEY).'/UserSeeder.php';
+        $seeder_path = $this->pm->specificPathExtract($this->pm::$SEEDER_PATH_KEY);
+        $user_seeder_path = $seeder_path.'/UserSeeder.php';
+        $sidebar_seeder_path = $seeder_path. '/SidebarSeeder.php';
         $user_seeder_namespace = $this->pathToNamespace($user_seeder_path, 'database');
+        $sidebar_seeder_namespace = $this->pathToNamespace($sidebar_seeder_path, 'database');
         $database_seeder_path = database_path('seeders/DatabaseSeeder.php');
 
         (new FileModifier($database_seeder_path))->searchingText('{', 2)
-            ->insertAfter()->insertingText("\n\t\t\t\$this->call(\\$user_seeder_namespace::class);")
+            ->insertAfter()->insertingText("\n\t\t\t\$this->call([\n\t\t\t\t\\$user_seeder_namespace::class,\n\t\t\t\t\\$sidebar_seeder_namespace::class\n\t\t\t]);")
             ->save($database_seeder_path);
     }
 
