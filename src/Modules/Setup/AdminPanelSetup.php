@@ -87,8 +87,8 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
     public function DatabaseSeederModification()
     {
         $seeder_path = $this->pm->specificPathExtract($this->pm::$SEEDER_PATH_KEY);
-        $user_seeder_path = $seeder_path . '/UserSeeder.php';
-        $sidebar_seeder_path = $seeder_path . '/SidebarSeeder.php';
+        $user_seeder_path = $seeder_path.'/UserSeeder.php';
+        $sidebar_seeder_path = $seeder_path.'/SidebarSeeder.php';
         $user_seeder_namespace = $this->pathToNamespace($user_seeder_path, 'database');
         $sidebar_seeder_namespace = $this->pathToNamespace($sidebar_seeder_path, 'database');
         $database_seeder_path = database_path('seeders/DatabaseSeeder.php');
@@ -155,15 +155,15 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
     protected function reversePublishedFiles()
     {
         $this->deletePublishedFiles([
-            __DIR__ . '/assets' => $this->pm->specificPathExtract($this->pm::$ASSET_PATH_KEY), //assets files
-            __DIR__ . '/views' => $this->pm->specificPathExtract($this->pm::$VIEW_PATH_KEY), //view files
-            __DIR__ . '/components' => $this->pm->specificPathExtract($this->pm::$VIEW_COMPONENT_PATH_KEY), //view component files
-            __DIR__ . '/component-class' => $this->pm->specificPathExtract($this->pm::$COMPONENT_CLASS_PATH_KEY), //view component class files
-            __DIR__ . '/Controllers' => $this->pm->specificPathExtract($this->pm::$CONTROLLER_PATH_KEY), //view files
-            __DIR__ . '/routes' => $this->pm->specificPathExtract($this->pm::$ROUTE_PATH_KEY), //view files
-            __DIR__ . '/seeder' => $this->pm->specificPathExtract($this->pm::$SEEDER_PATH_KEY), //view files
-            __DIR__ . '/migrations' => $this->pm->specificPathExtract($this->pm::$MIGRATION_PATH_KEY), //view files
-            __DIR__ . '/models' => $this->pm->specificPathExtract($this->pm::$MODEL_PATH_KEY), //view files
+            __DIR__.'/assets' => $this->pm->specificPathExtract($this->pm::$ASSET_PATH_KEY), //assets files
+            __DIR__.'/views' => $this->pm->specificPathExtract($this->pm::$VIEW_PATH_KEY), //view files
+            __DIR__.'/components' => $this->pm->specificPathExtract($this->pm::$VIEW_COMPONENT_PATH_KEY), //view component files
+            __DIR__.'/component-class' => $this->pm->specificPathExtract($this->pm::$COMPONENT_CLASS_PATH_KEY), //view component class files
+            __DIR__.'/Controllers' => $this->pm->specificPathExtract($this->pm::$CONTROLLER_PATH_KEY), //view files
+            __DIR__.'/routes' => $this->pm->specificPathExtract($this->pm::$ROUTE_PATH_KEY), //view files
+            __DIR__.'/seeder' => $this->pm->specificPathExtract($this->pm::$SEEDER_PATH_KEY), //view files
+            __DIR__.'/migrations' => $this->pm->specificPathExtract($this->pm::$MIGRATION_PATH_KEY), //view files
+            __DIR__.'/models' => $this->pm->specificPathExtract($this->pm::$MODEL_PATH_KEY), //view files
         ]);
     }
 
@@ -194,8 +194,8 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
     protected function reverseDatabaseSeederModification()
     {
         $seeder_path = $this->pm->specificPathExtract($this->pm::$SEEDER_PATH_KEY);
-        $user_seeder_path = $seeder_path . '/UserSeeder.php';
-        $sidebar_seeder_path = $seeder_path . '/SidebarSeeder.php';
+        $user_seeder_path = $seeder_path.'/UserSeeder.php';
+        $sidebar_seeder_path = $seeder_path.'/SidebarSeeder.php';
         $user_seeder_namespace = $this->pathToNamespace($user_seeder_path, 'database');
         $sidebar_seeder_namespace = $this->pathToNamespace($sidebar_seeder_path, 'database');
         $database_seeder_path = database_path('seeders/DatabaseSeeder.php');
@@ -221,8 +221,8 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         $migration_prefix = $this->pm->pathPrefixExtract($this->pm::$MIGRATION_PATH_KEY, 'migrations');
         if ($migration_prefix) {
             (new FileModifier($app_service_provider_path))->searchingText("\n\t\t\$this->loadMigrationsFrom([\n\t\t\tdatabase_path('migrations'),\n\t\t\tdatabase_path('migrations/$migration_prefix'),\n\t\t]);")
-            ->delete()
-            ->save();
+                ->delete()
+                ->save();
         }
     }
 

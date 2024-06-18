@@ -22,6 +22,7 @@ class TheBackendWizardCommand extends Command
     const USERMANAGEMENT = 'user-management';
 
     const SIDEBAR_REFRESH = 'sidebar-refresh';
+
     const CLEAN = 'setup-reverse';
 
     public function handle(): int
@@ -59,7 +60,8 @@ class TheBackendWizardCommand extends Command
         echo 'Nsidebar is refreshed';
     }
 
-    public function reverseSetup(){
+    public function reverseSetup()
+    {
         (new AdminPanelSetup())->down();
     }
 }

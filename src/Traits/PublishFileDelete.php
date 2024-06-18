@@ -6,16 +6,16 @@ use Illuminate\Support\Facades\File;
 
 trait PublishFileDelete
 {
-    public function deletePublishedFiles($path_array){
-        foreach($path_array as $pakage_file_path => $app_file_path){
-            $this->synchronizeFiles($pakage_file_path,$app_file_path);
+    public function deletePublishedFiles($path_array)
+    {
+        foreach ($path_array as $pakage_file_path => $app_file_path) {
+            $this->synchronizeFiles($pakage_file_path, $app_file_path);
         }
     }
 
     /**
      * Synchronize files between views/backend and nobir/files.
      */
-
     public function synchronizeFiles($pakage_file_path, $app_file_path)
     {
         $backendDir = $app_file_path; // Adjust as per your directory structure
@@ -38,7 +38,7 @@ trait PublishFileDelete
         foreach ($filesToDelete as $file) {
             $fullPath = $backendDir.'/'.$file;
             File::delete($fullPath);
-            echo "\nDeleted file: " . $fullPath . "<br>";
+            echo "\nDeleted file: ".$fullPath.'<br>';
         }
 
         echo "\nFiles synchronized successfully.";
