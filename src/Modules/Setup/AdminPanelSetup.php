@@ -83,12 +83,12 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
             ->insertAfter()->insertingText("\n\t\t\t\$table->string('img',500)->nullable();")
             ->save($user_migration_path);
     }
- 
+
     public function DatabaseSeederModification()
     {
         $seeder_path = $this->pm->specificPathExtract($this->pm::$SEEDER_PATH_KEY);
         $user_seeder_path = $seeder_path.'/UserSeeder.php';
-        $sidebar_seeder_path = $seeder_path. '/SidebarSeeder.php';
+        $sidebar_seeder_path = $seeder_path.'/SidebarSeeder.php';
         $user_seeder_namespace = $this->pathToNamespace($user_seeder_path, 'database');
         $sidebar_seeder_namespace = $this->pathToNamespace($sidebar_seeder_path, 'database');
         $database_seeder_path = database_path('seeders/DatabaseSeeder.php');
