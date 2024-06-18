@@ -21,7 +21,7 @@ class TheBackendWizardCommand extends Command
     const ADMINPANELSETUP = 'setup';
     const USERMANAGEMENT = 'user-management';
     const SIDEBAR_REFRESH = 'sidebar-refresh';
-    const CLEAN = 'clean';
+    const CLEAN = 'setup-reverse';
 
     public function handle(): int
     {
@@ -37,7 +37,7 @@ class TheBackendWizardCommand extends Command
                 break;
 
             case self::CLEAN:
-                $this->removeAllConfigureDir();
+                $this->reverseSetup();
                 break;
         }
 
@@ -58,7 +58,7 @@ class TheBackendWizardCommand extends Command
         echo 'Nsidebar is refreshed';
     }
 
-    public function removeAllConfigureDir(){
+    public function reverseSetup(){
         (new AdminPanelSetup())->down();
     }
 }
