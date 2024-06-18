@@ -1,4 +1,5 @@
 <?php
+
 namespace Nobir\TheBackendWizard\Traits;
 
 use Illuminate\Support\Facades\File;
@@ -8,7 +9,7 @@ trait PublishFileDelete
     /**
      * Synchronize files between views/backend and nobir/files.
      */
-    public function synchronizeFiles($app_file_path,$pakage_file_path)
+    public function synchronizeFiles($app_file_path, $pakage_file_path)
     {
         $backendDir = $app_file_path; // Adjust as per your directory structure
         $nobirDir = $pakage_file_path; // Adjust as per your directory structure
@@ -28,12 +29,12 @@ trait PublishFileDelete
 
         // Delete matching files from views/backend
         foreach ($filesToDelete as $file) {
-            $fullPath = $backendDir . '/' . $file;
+            $fullPath = $backendDir.'/'.$file;
             File::delete($fullPath);
-            echo "Deleted file: " . $fullPath . "<br>";
+            echo 'Deleted file: '.$fullPath.'<br>';
         }
 
-        echo "Files synchronized successfully.";
+        echo 'Files synchronized successfully.';
 
         // You can add further logic or return a response as needed
     }
@@ -71,5 +72,4 @@ trait PublishFileDelete
 
         return $relativePaths;
     }
-
 }

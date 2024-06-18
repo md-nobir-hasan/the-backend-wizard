@@ -128,10 +128,9 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         }
     }
 
-
     public function down()
     {
-          // Reverse the Artisan vendor publish
+        // Reverse the Artisan vendor publish
         $this->deletePublishedFiles();
 
         // Reverse route modifications
@@ -155,7 +154,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
     protected function deletePublishedFiles()
     {
-        $this->synchronizeFiles($this->pm->specificPathExtract($this->pm::$VIEW_PATH_KEY), __DIR__ . '/views');
+        $this->synchronizeFiles($this->pm->specificPathExtract($this->pm::$VIEW_PATH_KEY), __DIR__.'/views');
 
     }
 
@@ -163,7 +162,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
     {
         $web_path = base_path('routes/web.php');
         (new FileModifier($web_path))->searchingText("\nrequire 'backend.php'; ")
-        ->delete()
+            ->delete()
             ->save($web_path);
     }
 
@@ -171,7 +170,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
     {
         $user_model_path = app_path('Models/User.php');
         (new FileModifier($user_model_path))->searchingText("\n\t\t'img',")
-        ->delete()
+            ->delete()
             ->save($user_model_path);
     }
 
@@ -179,7 +178,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
     {
         $user_migration_path = database_path('migrations/0001_01_01_000000_create_users_table.php');
         (new FileModifier($user_migration_path))->searchingText("\n\t\t\t\$table->string('img',500)->nullable();")
-        ->delete()
+            ->delete()
             ->save($user_migration_path);
     }
 
@@ -187,7 +186,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
     {
         $database_seeder_path = database_path('seeders/DatabaseSeeder.php');
         (new FileModifier($database_seeder_path))->searchingText("\n\t\t\$this->call([\n\t\t\t\\$user_seeder_namespace::class,\n\t\t\t\\$sidebar_seeder_namespace::class\n\t\t]);")
-        ->delete()
+            ->delete()
             ->save($database_seeder_path);
     }
 
@@ -196,7 +195,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         $app_service_provider_path = $this->pm->specificPathExtract($this->pm::$APP_SERVICE_PROVIDER_PATH_KEY);
 
         (new FileModifier($app_service_provider_path))->searchingText("\n\nuse Illuminate\Support\Facades\Cache;")
-        ->delete()
+            ->delete()
             ->searchingText("\n\t\t\$sidebar_lists = Cache::get('nsidebar') ?? [];\n\t\tview()->share('sidebar_lists',\$sidebar_lists);")
             ->delete()
             ->save($app_service_provider_path);
