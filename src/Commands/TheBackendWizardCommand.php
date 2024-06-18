@@ -6,7 +6,6 @@ use App\Models\Backend\NSidebar;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Nobir\TheBackendWizard\Modules\Setup\AdminPanelSetup;
-use Nobir\TheBackendWizard\Services\CleanBackendPanel;
 use Nobir\TheBackendWizard\Traits\DataProcessing;
 
 class TheBackendWizardCommand extends Command
@@ -19,7 +18,9 @@ class TheBackendWizardCommand extends Command
 
     //modules name
     const ADMINPANELSETUP = 'setup';
+
     const USERMANAGEMENT = 'user-management';
+
     const SIDEBAR_REFRESH = 'sidebar-refresh';
     const CLEAN = 'setup-reverse';
 

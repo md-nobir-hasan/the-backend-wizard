@@ -45,7 +45,7 @@ class FileModifier
     {
         $text = $this->searchingText;
         if (strpos($this->content, $text) == false) {
-           $this->searchingText = $text;
+            $this->searchingText = $text;
         }
 
         return $this;
@@ -79,6 +79,7 @@ class FileModifier
 
         return $this;
     }
+
     public function delete()
     {
         $this->insertingText = '';
@@ -87,6 +88,7 @@ class FileModifier
 
         return $this;
     }
+
     public function isExistStop()
     {
         $text = $this->insertingText;

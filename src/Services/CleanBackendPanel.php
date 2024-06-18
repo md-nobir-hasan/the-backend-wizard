@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\File;
 class CleanBackendPanel
 {
     public $pm;
+
     public function __construct()
     {
         $this->pm = new PathManager();

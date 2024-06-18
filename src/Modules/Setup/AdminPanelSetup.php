@@ -128,7 +128,6 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         }
     }
 
-
     public function down()
     {
         // Reverse the Artisan vendor publish

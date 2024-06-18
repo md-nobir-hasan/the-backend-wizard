@@ -1,4 +1,5 @@
 <?php
+
 namespace Nobir\TheBackendWizard\Traits;
 
 use Illuminate\Support\Facades\File;
@@ -35,7 +36,7 @@ trait PublishFileDelete
 
         // Delete matching files from views/backend
         foreach ($filesToDelete as $file) {
-            $fullPath = $backendDir . '/' . $file;
+            $fullPath = $backendDir.'/'.$file;
             File::delete($fullPath);
             echo "\nDeleted file: " . $fullPath . "<br>";
         }
@@ -78,5 +79,4 @@ trait PublishFileDelete
 
         return $relativePaths;
     }
-
 }
