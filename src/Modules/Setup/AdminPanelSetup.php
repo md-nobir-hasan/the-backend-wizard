@@ -8,10 +8,11 @@ use Nobir\TheBackendWizard\Modules\BaseModule;
 use Nobir\TheBackendWizard\Services\FileModifier;
 use Nobir\TheBackendWizard\Services\PathManager;
 use Nobir\TheBackendWizard\Traits\PathToNamespaceExtract;
+use Nobir\TheBackendWizard\Traits\PublishFileDelete;
 
 class AdminPanelSetup extends BaseModule implements ModuleInterface
 {
-    use PathToNamespaceExtract;
+    use PathToNamespaceExtract, PublishFileDelete;
 
     public $pm;
 
@@ -83,7 +84,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
             ->insertAfter()->insertingText("\n\t\t\t\$table->string('img',500)->nullable();")
             ->save($user_migration_path);
     }
- 
+
     public function DatabaseSeederModification()
     {
         $seeder_path = $this->pm->specificPathExtract($this->pm::$SEEDER_PATH_KEY);
@@ -124,6 +125,90 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
             echo Artisan::output();
         } catch (\Exception $e) {
             echo "Migration and seeding can't be done";
+        }
+    }
+
+
+    public function down()
+    {
+          // Reverse the Artisan vendor publish
+        $this->deletePublishedFiles();
+
+        // Reverse route modifications
+        $this->reverseRouteModification();
+
+        // Reverse model modifications
+        $this->reverseModelModification();
+
+        // Reverse migration modifications
+        $this->reverseMigrationModification();
+
+        // Reverse DatabaseSeeder modifications
+        $this->reverseDatabaseSeederModification();
+
+        // Reverse AppServiceProvider modifications
+        $this->reverseAppServiceProviderModification();
+
+        // Rollback migrations
+        $this->rollbackMigrations();
+    }
+
+    protected function deletePublishedFiles()
+    {
+        $this->synchronizeFiles($this->pm->specificPathExtract($this->pm::$VIEW_PATH_KEY), __DIR__ . '/views');
+
+    }
+
+    protected function reverseRouteModification()
+    {
+        $web_path = base_path('routes/web.php');
+        (new FileModifier($web_path))->searchingText("\nrequire 'backend.php'; ")
+        ->delete()
+            ->save($web_path);
+    }
+
+    protected function reverseModelModification()
+    {
+        $user_model_path = app_path('Models/User.php');
+        (new FileModifier($user_model_path))->searchingText("\n\t\t'img',")
+        ->delete()
+            ->save($user_model_path);
+    }
+
+    protected function reverseMigrationModification()
+    {
+        $user_migration_path = database_path('migrations/0001_01_01_000000_create_users_table.php');
+        (new FileModifier($user_migration_path))->searchingText("\n\t\t\t\$table->string('img',500)->nullable();")
+        ->delete()
+            ->save($user_migration_path);
+    }
+
+    protected function reverseDatabaseSeederModification()
+    {
+        $database_seeder_path = database_path('seeders/DatabaseSeeder.php');
+        (new FileModifier($database_seeder_path))->searchingText("\n\t\t\$this->call([\n\t\t\t\\$user_seeder_namespace::class,\n\t\t\t\\$sidebar_seeder_namespace::class\n\t\t]);")
+        ->delete()
+            ->save($database_seeder_path);
+    }
+
+    protected function reverseAppServiceProviderModification()
+    {
+        $app_service_provider_path = $this->pm->specificPathExtract($this->pm::$APP_SERVICE_PROVIDER_PATH_KEY);
+
+        (new FileModifier($app_service_provider_path))->searchingText("\n\nuse Illuminate\Support\Facades\Cache;")
+        ->delete()
+            ->searchingText("\n\t\t\$sidebar_lists = Cache::get('nsidebar') ?? [];\n\t\tview()->share('sidebar_lists',\$sidebar_lists);")
+            ->delete()
+            ->save($app_service_provider_path);
+    }
+
+    protected function rollbackMigrations()
+    {
+        try {
+            Artisan::call('migrate:rollback');
+            echo Artisan::output();
+        } catch (\Exception $e) {
+            echo "Migration rollback can't be done";
         }
     }
 }

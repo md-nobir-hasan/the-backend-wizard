@@ -41,6 +41,16 @@ class FileModifier
         return $this;
     }
 
+    public function orSearchingText($text)
+    {
+        $text = $this->searchingText;
+        if (strpos($this->content, $text) == false) {
+           $this->searchingText = $text;
+        }
+
+        return $this;
+    }
+
     public function replace()
     {
         $this->insertingPosition = 0;
@@ -66,6 +76,23 @@ class FileModifier
     {
         $this->insertingText = $text;
         $this->applyModification();
+
+        return $this;
+    }
+    public function delete()
+    {
+        $this->insertingText = '';
+        $this->insertingPosition = 0;
+        $this->applyModification();
+
+        return $this;
+    }
+    public function isExistStop()
+    {
+        $text = $this->insertingText;
+        if (strpos($this->content, $text) !== false) {
+            throw new \Exception("Text '$text' already exists in the content.");
+        }
 
         return $this;
     }

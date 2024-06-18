@@ -12,6 +12,6 @@ return [
     'view_path' => resource_path('views/backend'),
     'asset_path' => public_path('assets/backend'),
     'app_service_provider_path' => app_path('Providers/AppServiceProvider.php'),
-    'component_class_path' => app_path('View/Components'),
-    'view_component_path' => resource_path('views/components'),
+    'component_class_path' => app_path('View/Components/Backend'),
+    'view_component_path' => resource_path('views/components/backend'),
 ];

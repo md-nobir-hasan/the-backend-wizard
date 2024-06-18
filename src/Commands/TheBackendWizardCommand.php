@@ -6,6 +6,7 @@ use App\Models\Backend\NSidebar;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Nobir\TheBackendWizard\Modules\Setup\AdminPanelSetup;
+use Nobir\TheBackendWizard\Services\CleanBackendPanel;
 use Nobir\TheBackendWizard\Traits\DataProcessing;
 
 class TheBackendWizardCommand extends Command
@@ -18,10 +19,9 @@ class TheBackendWizardCommand extends Command
 
     //modules name
     const ADMINPANELSETUP = 'setup';
-
     const USERMANAGEMENT = 'user-management';
-
     const SIDEBAR_REFRESH = 'sidebar-refresh';
+    const CLEAN = 'clean';
 
     public function handle(): int
     {
@@ -34,6 +34,10 @@ class TheBackendWizardCommand extends Command
 
             case self::SIDEBAR_REFRESH:
                 $this->sidebarRefresh();
+                break;
+
+            case self::CLEAN:
+                $this->removeAllConfigureDir();
                 break;
         }
 
@@ -52,5 +56,9 @@ class TheBackendWizardCommand extends Command
             return NSidebar::with('child_bar')->where('is_parent', true)->where('status', 'Active')->get();
         });
         echo 'Nsidebar is refreshed';
+    }
+
+    public function removeAllConfigureDir(){
+        (new AdminPanelSetup())->down();
     }
 }
