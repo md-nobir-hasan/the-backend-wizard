@@ -6,8 +6,5 @@ trait DataProcessing
 {
     const STRING = 'string';
 
-    public function DataTypeProcessing($dataType)
-    {
-
-    }
+    public function DataTypeProcessing($dataType) {}
 }

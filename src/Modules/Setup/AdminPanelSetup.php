@@ -23,9 +23,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
     public $path;
 
-    public function command()
-    {
-    }
+    public function command() {}
 
     public function run($data)
     {
