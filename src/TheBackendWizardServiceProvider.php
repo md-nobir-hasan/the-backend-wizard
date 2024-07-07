@@ -21,8 +21,7 @@ class TheBackendWizardServiceProvider extends ServiceProvider
         $pathManager = new PathManager();
         $this->commands([
             TheBackendWizardCommand::class,
-        ]);
-        //publishing configure file
+        ]);//publishing configure file
         $this->publishes([
             __DIR__.'/template/config.php' => config_path('backend.php'), //configure files
         ]);
