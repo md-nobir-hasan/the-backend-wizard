@@ -67,20 +67,20 @@ class TheBackendWizardCommand extends Command
     {
 
         //Stater kids installation
-        switch ($this->config['stater_kids']) {
-            case 'breeze':
-                $this->installBreeze();
-            default:
-                break;
-        }
+        // switch ($this->config['stater_kids']) {
+        //     case 'breeze':
+        //         $this->installBreeze();
+        //     default:
+        //         break;
+        // }
 
         (new AdminPanelSetup)->run([]);
 
         // $this->call('migrate');
 
-        if ($this->config['asset_build']) {
-            $this->assetBuild();
-        }
+        // if ($this->config['asset_build']) {
+        //     $this->assetBuild();
+        // }
 
     }
 
