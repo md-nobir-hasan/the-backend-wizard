@@ -62,7 +62,7 @@ class PathManager
 
     public function defaultConfigPaths()
     {
-        return include __DIR__.'/../template/config.php';
+        return include __DIR__.'/../configs/config.php';
     }
 
     public function specificPathExtract($path_key)
