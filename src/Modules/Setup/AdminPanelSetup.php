@@ -58,7 +58,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         // $this->appServiceProviderModification();
 
         //Migration and Seeder
-        // $this->migrationAndSeeder();
+        $this->migrationAndSeeder();
     }
 
     public function routeModification()
