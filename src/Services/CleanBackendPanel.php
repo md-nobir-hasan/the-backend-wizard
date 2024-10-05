@@ -10,7 +10,7 @@ class CleanBackendPanel
 
     public function __construct()
     {
-        $this->pm = new PathManager();
+        $this->pm = new PathManager;
     }
 
     public function run()

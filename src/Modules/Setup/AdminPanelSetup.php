@@ -61,7 +61,6 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         // $this->migrationAndSeeder();
     }
 
-
     public function routeModification()
     {
         $web_path = base_path('routes/web.php');

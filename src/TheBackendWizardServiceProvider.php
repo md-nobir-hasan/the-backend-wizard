@@ -4,7 +4,6 @@ namespace Nobir\TheBackendWizard;
 
 use Illuminate\Support\ServiceProvider;
 use Nobir\TheBackendWizard\Commands\TheBackendWizardCommand;
-use Nobir\TheBackendWizard\Services\PathManager;
 
 class TheBackendWizardServiceProvider extends ServiceProvider
 {
@@ -28,25 +27,23 @@ class TheBackendWizardServiceProvider extends ServiceProvider
 
         // automatic publishing configure file
         $this->publishes([
-            __DIR__ . '/configs/config.php' => config_path('nbackend.php'), //configure files
+            __DIR__.'/configs/config.php' => config_path('nbackend.php'), //configure files
         ]);
 
         //publishing configure file using command
         $this->publishes([
-            __DIR__ . '/configs/config.php' => config_path('nbackend.php'), //configure files
-        ],'backend-config');
+            __DIR__.'/configs/config.php' => config_path('nbackend.php'), //configure files
+        ], 'backend-config');
 
         //publishing theme
         $this->publishes([
-            __DIR__ . "/theme/$theme_name" => resource_path('views/backend'), //configure files
-        ],'backend-theme');
-
+            __DIR__."/theme/$theme_name" => resource_path('views/backend'), //configure files
+        ], 'backend-theme');
 
         //publishing setu
         $this->publishes([
-            __DIR__ . '/Modules/Setup' => base_path(), //configure files
+            __DIR__.'/Modules/Setup' => base_path(), //configure files
         ], 'backend-setup');
-
 
     }
 }
