@@ -2,6 +2,10 @@
 
 All notable changes to `the-backend-wizard` will be documented in this file.
 
+## v1.0.7 - 2024-10-05
+
+uncomman the setup features
+
 ## v1.0.6 - 2024-10-05
 
 just uncommand the setup features
