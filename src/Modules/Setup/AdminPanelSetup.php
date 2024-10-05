@@ -2,6 +2,7 @@
 
 namespace Nobir\TheBackendWizard\Modules\Setup;
 
+use File;
 use Illuminate\Support\Facades\Artisan;
 use Nobir\TheBackendWizard\Interfaces\ModuleInterface;
 use Nobir\TheBackendWizard\Modules\BaseModule;
@@ -28,28 +29,28 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
     public function run($data)
     {
 
-        //Everything publishing without theme
-        Artisan::call('vendor:publish', [
-            '--tag' => 'backend-setup',
-        ]);
+        // //Everything publishing without theme
+        // Artisan::call('vendor:publish', [
+        //     '--tag' => 'backend-setup',
+        // ]);
 
-        echo Artisan::output();
+        // echo Artisan::output();
 
-        //Theme publishing
-        Artisan::call('vendor:publish', [
-            '--tag' => 'backend-theme',
-        ]);
+        // //Theme publishing
+        // Artisan::call('vendor:publish', [
+        //     '--tag' => 'backend-theme',
+        // ]);
 
-        echo Artisan::output();
+        // echo Artisan::output();
 
-        //Modifiying route(web.php)
-        $this->routeModification();
+        // //Modifiying route(web.php)
+        // $this->routeModification();
 
         //Modifiying model (User.php)
         // $this->modelModification();
 
         //Modifiying migration (User.php)
-        // $this->DatabaseSeederModification();
+        $this->DatabaseSeederModification();
 
         //Modifiying DatabaseSeeder
         // $this->migrationModification();
@@ -93,16 +94,19 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
     public function DatabaseSeederModification()
     {
-        $seeder_path = $this->pm->specificPathExtract($this->pm::$SEEDER_PATH_KEY);
-        $user_seeder_path = $seeder_path.'/UserSeeder.php';
-        $sidebar_seeder_path = $seeder_path.'/SidebarSeeder.php';
-        $user_seeder_namespace = $this->pathToNamespace($user_seeder_path, 'database');
-        $sidebar_seeder_namespace = $this->pathToNamespace($sidebar_seeder_path, 'database');
+        // $seeder_path = $this->pm->specificPathExtract($this->pm::$SEEDER_PATH_KEY);
+        // $user_seeder_path = $seeder_path.'/UserSeeder.php';
+        // $sidebar_seeder_path = $seeder_path.'/SidebarSeeder.php';
+        // $user_seeder_namespace = $this->pathToNamespace($user_seeder_path, 'database');
+        // $sidebar_seeder_namespace = $this->pathToNamespace($sidebar_seeder_path, 'database');
         $database_seeder_path = database_path('seeders/DatabaseSeeder.php');
 
-        (new FileModifier($database_seeder_path))->searchingText('{', 2)
-            ->insertAfter()->insertingText("\n\t\t\$this->call([\n\t\t\t\\$user_seeder_namespace::class,\n\t\t\t\\$sidebar_seeder_namespace::class\n\t\t]);")
-            ->save($database_seeder_path);
+        // (new FileModifier($database_seeder_path))->searchingText('{', 2)
+        //     ->insertAfter()->insertingText("\n\t\t\$this->call([\n\t\t\t\\$user_seeder_namespace::class,\n\t\t\t\\$sidebar_seeder_namespace::class\n\t\t]);")
+        //     ->save($database_seeder_path);
+        $content = "<?php \nnamespace Database\Seeders;\nuse App\Models\User;\nuse Database\Seeders\UserSeeder;\nuse Illuminate\Database\Seeder;\nclass DatabaseSeeder extends Seeder\n{\n\t/**\n\t* Seed the application's database.\n\t */\n\tpublic function run(): void\n\t{\n\t\t\$this->call(UserSeeder::class);\n\t}\n}";
+        File::put($database_seeder_path, $content);
+
     }
 
     public function appServiceProviderModification()
