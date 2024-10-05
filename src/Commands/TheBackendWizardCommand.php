@@ -3,13 +3,12 @@
 namespace Nobir\TheBackendWizard\Commands;
 
 use App\Models\Backend\NSidebar;
-use Artisan;
 use Illuminate\Console\Command;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Illuminate\Support\Facades\Cache;
 use Nobir\TheBackendWizard\Modules\Setup\AdminPanelSetup;
 use Nobir\TheBackendWizard\Traits\DataProcessing;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 class TheBackendWizardCommand extends Command
 {
@@ -36,8 +35,9 @@ class TheBackendWizardCommand extends Command
 
         $config = config('nbackend');
 
-        if($config == null){
+        if ($config == null) {
             $this->error('Please, run php artisan vendor:publish --tag=backend-config');
+
             return false; // Stop execution
         }
 
@@ -67,24 +67,22 @@ class TheBackendWizardCommand extends Command
     {
 
         //Stater kids installation
-          switch($this->config['stater_kids']){
+        switch ($this->config['stater_kids']) {
             case 'breeze':
                 $this->installBreeze();
             default:
                 break;
-          }
+        }
 
-
-        (new AdminPanelSetup())->run([]);
+        (new AdminPanelSetup)->run([]);
 
         $this->call('migrate');
 
-        if($this->config['asset_build']){
+        if ($this->config['asset_build']) {
             $this->assetBuild();
         }
 
     }
-
 
     protected function installBreeze()
     {
@@ -94,7 +92,6 @@ class TheBackendWizardCommand extends Command
 
         // Install Laravel Breeze scaffolding with default stack (e.g., Blade, no dark mode, Pest for testing)
         $this->installBreezeScaffolding();
-
 
         // Run migrations
 
@@ -116,7 +113,7 @@ class TheBackendWizardCommand extends Command
         $process->run();
 
         // Check if the process was successful
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
@@ -128,7 +125,7 @@ class TheBackendWizardCommand extends Command
         $this->info("Running: $command");
         $process = proc_open($command, [
             1 => ['pipe', 'w'],
-            2 => ['pipe', 'w']
+            2 => ['pipe', 'w'],
         ], $pipes);
 
         if (is_resource($process)) {
@@ -144,14 +141,15 @@ class TheBackendWizardCommand extends Command
 
     protected function findComposer()
     {
-        if (file_exists(getcwd() . '/composer.phar')) {
+        if (file_exists(getcwd().'/composer.phar')) {
             return 'php composer.phar';
         }
 
         return 'composer';
     }
 
-    protected function assetBuild():void{
+    protected function assetBuild(): void
+    {
         // Install NPM dependencies
         $this->executeShellCommand('npm install');
 
@@ -171,6 +169,6 @@ class TheBackendWizardCommand extends Command
 
     public function reverseSetup()
     {
-        (new AdminPanelSetup())->down();
+        (new AdminPanelSetup)->down();
     }
 }
