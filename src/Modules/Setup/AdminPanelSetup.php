@@ -18,7 +18,7 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
     public function __construct()
     {
-        $this->pm = new PathManager();
+        // $this->pm = new PathManager();
     }
 
     public $path;
@@ -27,8 +27,17 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
 
     public function run($data)
     {
+
+        //Everything publishing without theme
         Artisan::call('vendor:publish', [
             '--tag' => 'backend-setup',
+        ]);
+
+        echo Artisan::output();
+
+        //Theme publishing
+        Artisan::call('vendor:publish', [
+            '--tag' => 'backend-theme',
         ]);
 
         echo Artisan::output();
@@ -37,20 +46,21 @@ class AdminPanelSetup extends BaseModule implements ModuleInterface
         $this->routeModification();
 
         //Modifiying model (User.php)
-        $this->modelModification();
+        // $this->modelModification();
 
         //Modifiying migration (User.php)
-        $this->DatabaseSeederModification();
+        // $this->DatabaseSeederModification();
 
         //Modifiying DatabaseSeeder
-        $this->migrationModification();
+        // $this->migrationModification();
 
         // //Modifiying AppServiceProvider
-        $this->appServiceProviderModification();
+        // $this->appServiceProviderModification();
 
         //Migration and Seeder
-        $this->migrationAndSeeder();
+        // $this->migrationAndSeeder();
     }
+
 
     public function routeModification()
     {
