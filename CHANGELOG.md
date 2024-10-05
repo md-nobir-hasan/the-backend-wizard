@@ -2,6 +2,10 @@
 
 All notable changes to `the-backend-wizard` will be documented in this file.
 
+## v1.0.4 - 2024-10-05
+
+user seeder currection done
+
 ## v1.0.2 - 2024-10-05
 
 just remove the deficiences
