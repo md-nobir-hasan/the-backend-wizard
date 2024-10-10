@@ -122,6 +122,8 @@ class TheBackendWizardCommand extends Command
         $this->info($process->getOutput());
     }
 
+  
+
     protected function executeShellCommand($command)
     {
         $this->info("Running: $command");
@@ -132,7 +134,7 @@ class TheBackendWizardCommand extends Command
 
         if (is_resource($process)) {
             while ($output = fgets($pipes[1])) {
-                $this->line($output);
+                $this->line(string: $output);
             }
             while ($error = fgets($pipes[2])) {
                 $this->error($error);
@@ -148,6 +150,17 @@ class TheBackendWizardCommand extends Command
         }
 
         return 'composer';
+    }
+
+    protected function findNpm()
+    {
+        // Check for a project-local NPM installation
+        if (file_exists(getcwd() . '/node_modules/.bin/npm')) {
+            return './node_modules/.bin/npm';
+        }
+
+        // Fall back to global NPM
+        return 'npm';
     }
 
     protected function assetBuild(): void

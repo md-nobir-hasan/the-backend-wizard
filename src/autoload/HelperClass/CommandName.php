@@ -15,6 +15,8 @@ abstract class CommandName
     const SIDEBAR_REFRESH = 'sidebar-refresh';
 
     const CLEAN = 'setup-reverse';
+    const COMMANDS = ['setup'];
+    const REVERSE_COMMANDS = ['reverse_setup'];
 
     public static function pakage_root_path($path = null): string
     {

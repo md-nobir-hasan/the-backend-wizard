@@ -11,6 +11,9 @@ use Nobir\TheBackendWizard\HelperClass\CommandName;
 return [
     'taildash' => [
         CommandName::SETUP => [
+            "command" => [
+                ['code'=>'','artisan' => true,'first'=>true],
+            ],
             'publish' => [],
             'cp' => [
                 CommandName::content_replace_path(CommandName::SETUP).'/0001_01_01_000000_create_users_table.php' => database_path('migrations/0001_01_01_000000_create_users_table.php'),
