@@ -2,6 +2,10 @@
 
 All notable changes to `the-backend-wizard` will be documented in this file.
 
+## v2.0.0. - 2024-10-10
+
+Full sturcture changed
+
 ## v1.0.7 - 2024-10-05
 
 uncomman the setup features
