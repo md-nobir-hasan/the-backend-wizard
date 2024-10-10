@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('theme_settings', function (Blueprint $table) {
             $table->id();
-            $table->enum('layout',['default','compact','thin'])->default('default');
-            $table->enum('primary_color',['theme-red','theme-yellow','theme-green','theme-blue','theme-purple','theme-pink'])->nullable();
-            $table->enum('color_scheme',['dark'])->nullable();
-            $table->enum('sidebar_color',['sidebar-dark'])->nullable();
-            $table->enum('direction',['ltr','rtl'])->default('ltr');
+            $table->enum('layout', ['default', 'compact', 'thin'])->default('default');
+            $table->enum('primary_color', ['theme-red', 'theme-yellow', 'theme-green', 'theme-blue', 'theme-purple', 'theme-pink'])->nullable();
+            $table->enum('color_scheme', ['dark'])->nullable();
+            $table->enum('sidebar_color', ['sidebar-dark'])->nullable();
+            $table->enum('direction', ['ltr', 'rtl'])->default('ltr');
             $table->timestamps();
         });
     }

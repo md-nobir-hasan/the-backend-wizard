@@ -1,9 +1,9 @@
 <?php
+
 namespace Nobir\TheBackendWizard\HelperClass;
 
 abstract class CommandName
 {
-
     //Command assing to the module, every command does not has module. if module is assining to he command, the module nae same to
     // module foler name
     //vendor publish group/tag name will be backend-{module name}
@@ -19,17 +19,19 @@ abstract class CommandName
     public static function pakage_root_path($path = null): string
     {
 
-        return dirname(__DIR__, 1) . "/" . trim($path, '/');
+        return dirname(__DIR__, 1).'/'.trim($path, '/');
     }
+
     public static function pakage_admin_path($path = null): string
     {
 
-        return dirname(__DIR__, 2) . "/admins/" . trim($path, '/');
+        return dirname(__DIR__, 2).'/admins/'.trim($path, '/');
     }
+
     public static function content_replace_path($command_name): string
     {
         $admin_name = config('nbackend.admin_name');
-        return self::pakage_admin_path() . "/$admin_name/$command_name/content-replace";
-    }
 
+        return self::pakage_admin_path()."/$admin_name/$command_name/content-replace";
+    }
 }

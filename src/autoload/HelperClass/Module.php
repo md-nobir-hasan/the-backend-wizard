@@ -1,4 +1,5 @@
 <?php
+
 namespace Nobir\TheBackendWizard\HelperClass;
 
 use Artisan;
@@ -7,8 +8,11 @@ use File;
 class Module
 {
     private array $content_replaceable_file_paths;
+
     private array $file_location;
+
     private string $command;
+
     private string $admin_name;
 
     private static $module = null;
@@ -56,7 +60,7 @@ class Module
                 File::put($app_path, $content);
             } catch (\Exception $e) {
                 // Log or handle the exception properly
-                echo "File operation failed: " . $e->getMessage();
+                echo 'File operation failed: '.$e->getMessage();
             }
         }
     }

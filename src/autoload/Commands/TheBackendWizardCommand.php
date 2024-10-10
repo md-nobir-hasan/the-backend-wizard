@@ -4,18 +4,16 @@ namespace Nobir\TheBackendWizard\Commands;
 
 use Illuminate\Console\Command;
 use Nobir\TheBackendWizard\HelperClass\CommandName;
+use Nobir\TheBackendWizard\HelperClass\Module;
 use Nobir\TheBackendWizard\Modules\Setup\AdminPanelSetup;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
-use Nobir\TheBackendWizard\HelperClass\Module;
 
 class TheBackendWizardCommand extends Command
 {
-
     public $signature = 'nobir:backend {moduleName}';
 
     public $description = 'Enter a module name';
-
 
     protected array $config;
 
@@ -35,7 +33,6 @@ class TheBackendWizardCommand extends Command
 
         $this->warn('Please, see the nbackend.php config file. everything setting up according to the file');
 
-
         //transfer to specific module
         switch ($modul_name) {
             case CommandName::SETUP:
@@ -43,15 +40,16 @@ class TheBackendWizardCommand extends Command
                 $this->process($module);
                 break;
 
-            // case CommandName::SIDEBAR_REFRESH:
-            //     $this->sidebarRefresh();
-            //     break;
+                // case CommandName::SIDEBAR_REFRESH:
+                //     $this->sidebarRefresh();
+                //     break;
 
-            // case CommandName::CLEAN:
-            //     $this->reverseSetup();
-            //     break;
+                // case CommandName::CLEAN:
+                //     $this->reverseSetup();
+                //     break;
             default:
                 $this->error('Please provide a valid command');
+
                 return false;
         }
 
@@ -117,7 +115,7 @@ class TheBackendWizardCommand extends Command
         $process->run();
 
         // Check if the process was successful
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
@@ -145,7 +143,7 @@ class TheBackendWizardCommand extends Command
 
     protected function findComposer()
     {
-        if (file_exists(getcwd() . '/composer.phar')) {
+        if (file_exists(getcwd().'/composer.phar')) {
             return 'php composer.phar';
         }
 
@@ -161,7 +159,6 @@ class TheBackendWizardCommand extends Command
         $this->executeShellCommand('npm run build');
 
     }
-
 
     public function reverseSetup()
     {

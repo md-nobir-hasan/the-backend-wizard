@@ -11,6 +11,7 @@ class Sidebar extends Component
     public array $menus = [
         //n
     ];
+
     /**
      * Create a new component instance.
      */

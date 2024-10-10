@@ -23,11 +23,11 @@ class ThemeSettingUpdateRequest extends FormRequest
     {
         return [
             // 'field'=>['required',"in:layout,primary_color,color_scheme,sidebar_color,direction"],
-            'layout'=>['nullable','string:100',"in:default,compact"],
-            'primary_color'=>['nullable','in:theme-red,theme-yellow,theme-green,theme-blue,theme-purple,theme-pink'],
-            'color_scheme'=>['nullable','in:dark'],
-            'sidebar_color'=>['nullable','in:sidebar-dark'],
-            'direction' => ['nullable','in:ltr,rtl']
+            'layout' => ['nullable', 'string:100', 'in:default,compact'],
+            'primary_color' => ['nullable', 'in:theme-red,theme-yellow,theme-green,theme-blue,theme-purple,theme-pink'],
+            'color_scheme' => ['nullable', 'in:dark'],
+            'sidebar_color' => ['nullable', 'in:sidebar-dark'],
+            'direction' => ['nullable', 'in:ltr,rtl'],
         ];
     }
 }

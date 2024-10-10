@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'nobir.wd@gmail.com',
             'profession' => 'Student',
-            'is_admin' =>true,
+            'is_admin' => true,
             'password' => Hash::make(123456),
         ];
 

@@ -4,7 +4,6 @@ namespace Nobir\TheBackendWizard;
 
 use Illuminate\Support\ServiceProvider;
 use Nobir\TheBackendWizard\Commands\TheBackendWizardCommand;
-
 use Nobir\TheBackendWizard\HelperClass\CommandName;
 
 class TheBackendWizardServiceProvider extends ServiceProvider
@@ -13,6 +12,7 @@ class TheBackendWizardServiceProvider extends ServiceProvider
     {
         //
     }
+
     protected function publishFile($admin_name, $module_name)
     {
         return $this->publishes([
@@ -35,6 +35,7 @@ class TheBackendWizardServiceProvider extends ServiceProvider
         ], "backend-$module_name");
 
     }
+
     /**
      * Bootstrap any application services.
      */
@@ -47,19 +48,16 @@ class TheBackendWizardServiceProvider extends ServiceProvider
 
         // automatic publishing configure file
         $this->publishes([
-            __DIR__ . '/configs/config.php' => config_path('nbackend.php'), //configure files
+            __DIR__.'/configs/config.php' => config_path('nbackend.php'), //configure files
         ]);
-
 
         //publishing configure file using command
         $this->publishes([
-            __DIR__ . '/configs/config.php' => config_path('nbackend.php'), //configure files
+            __DIR__.'/configs/config.php' => config_path('nbackend.php'), //configure files
         ], 'backend-config');
-
 
         $config = config('nbackend') ?? ['admin_name' => 'taildash'];
         $admin_name = $config['admin_name'];
-
 
         // Publishing the modules under the admin that is define in the congfig file
 
