@@ -18,14 +18,11 @@
     "require": {
         "php": "^8.2"
     },
-
     "autoload": {
         "psr-4": {
-            "Nobir\\TheBackendWizard\\": "src/",
-            "Nobir\\TheBackendWizard\\Database\\Factories\\": "database/factories/"
+            "Nobir\\TheBackendWizard\\": "src/autoload"
         }
     },
-
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
         "clear": "@php vendor/bin/testbench package:purge-the-backend-wizard --ansi",
@@ -55,10 +52,7 @@
         "laravel": {
             "providers": [
                 "Nobir\\TheBackendWizard\\TheBackendWizardServiceProvider"
-            ],
-            "aliases": {
-                "TheBackendWizard": "Nobir\\TheBackendWizard\\Facades\\TheBackendWizard"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
