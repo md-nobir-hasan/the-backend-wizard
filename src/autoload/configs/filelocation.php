@@ -11,8 +11,8 @@ use Nobir\TheBackendWizard\HelperClass\CommandName;
 return [
     'taildash' => [
         CommandName::SETUP => [
-            "command" => [
-                ['code'=>'','artisan' => true,'first'=>true],
+            'command' => [
+                ['code' => '', 'artisan' => true, 'first' => true],
             ],
             'publish' => [],
             'cp' => [

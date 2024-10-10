@@ -122,8 +122,6 @@ class TheBackendWizardCommand extends Command
         $this->info($process->getOutput());
     }
 
-  
-
     protected function executeShellCommand($command)
     {
         $this->info("Running: $command");
@@ -155,7 +153,7 @@ class TheBackendWizardCommand extends Command
     protected function findNpm()
     {
         // Check for a project-local NPM installation
-        if (file_exists(getcwd() . '/node_modules/.bin/npm')) {
+        if (file_exists(getcwd().'/node_modules/.bin/npm')) {
             return './node_modules/.bin/npm';
         }
 
