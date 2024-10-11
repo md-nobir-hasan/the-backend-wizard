@@ -64,12 +64,11 @@ class TheBackendWizardServiceProvider extends ServiceProvider
             __DIR__.'/configs/config.php' => config_path('nbackend.php'), //configure files
         ], 'backend-config');
 
-
         $config = config('nbackend') ?? ['admin_name' => 'taildash'];
         $admin_name = $config['admin_name'];
 
         // Publishing the modules under the admin that is define in the filelocation file
-        foreach(CommandName::COMMANDS as $command){
+        foreach (CommandName::COMMANDS as $command) {
             $this->publishFile($admin_name, $command);
         }
     }

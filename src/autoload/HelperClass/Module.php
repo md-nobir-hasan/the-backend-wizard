@@ -2,8 +2,6 @@
 
 namespace Nobir\TheBackendWizard\HelperClass;
 
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\Process;
 use Artisan;
 use File;
 
@@ -40,8 +38,6 @@ class Module
         return self::$module;
     }
 
-
-
     // Publishes files using Artisan
     public function publish()
     {
@@ -58,9 +54,9 @@ class Module
     // Replaces file content as defined in file paths
     public function contentReplace()
     {
-       if(isset($this->commands_and_paths['content_replace']) && count($this->commands_and_paths['content_replace']) > 0){
+        if (isset($this->commands_and_paths['content_replace']) && count($this->commands_and_paths['content_replace']) > 0) {
             return 'No replaceable files';
-       }
+        }
 
         $replace_files = $this->commands_and_paths['content_replace'];
 
@@ -70,17 +66,17 @@ class Module
                 File::put($app_path, $content);
             } catch (\Exception $e) {
                 // Log or handle the exception properly
-                echo 'File operation failed: ' . $e->getMessage();
+                echo 'File operation failed: '.$e->getMessage();
             }
         }
     }
+
     // Mdify the files content as defined in file paths
     public function contentModify()
     {
-        if(!isset($this->commands_and_paths['content_modify']) || count($this->commands_and_paths['content_modify']) < 1){
+        if (! isset($this->commands_and_paths['content_modify']) || count($this->commands_and_paths['content_modify']) < 1) {
             return 'Content modify not defined';
         }
-
 
         $content_mofify = $this->commands_and_paths['content_modify'];
 
@@ -89,14 +85,13 @@ class Module
                 $content_app = File::get($modify['app_path']);
                 $content_pakage = File::get($modify['pakage_path']);
                 $replace = $modify['replace'];
-                $content = str_replace($replace, $content_pakage . "\n $replace", $content_app);
+                $content = str_replace($replace, $content_pakage."\n $replace", $content_app);
 
                 File::put($modify['app_path'], $content);
             } catch (\Exception $e) {
                 // Log or handle the exception properly
-                echo 'File operation failed: ' . $e->getMessage();
+                echo 'File operation failed: '.$e->getMessage();
             }
         }
     }
-
 }
