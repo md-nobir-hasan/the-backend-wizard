@@ -22,12 +22,10 @@ return [
     'admin_name' => 'taildash',
 
     /**
-     * stater kids that's are available
+     * code slightly change in case of role permission
+     *HEre you can set role permission is set or not to the admin panel
      *
-     * breeze, ....upcoming
      */
-    'stater_kids' => 'breeze',
-
-    'asset_build' => true,
+    'role_parmission' => true
 
 ];
