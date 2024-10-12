@@ -55,7 +55,7 @@ class Module
     // Replaces file content as defined in file paths
     public function contentReplace()
     {
-        if (!isset($this->commands_and_paths['content_replace']) || count($this->commands_and_paths['content_replace']) < 1) {
+        if (! isset($this->commands_and_paths['content_replace']) || count($this->commands_and_paths['content_replace']) < 1) {
             return 'No replaceable files';
         }
 

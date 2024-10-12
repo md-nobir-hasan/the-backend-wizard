@@ -37,32 +37,31 @@ abstract class CommandName
         $admin_name = config('nbackend.admin_name');
         $with_or_without_role_path = self::role_permission_path_or_not();
 
-        return self::pakage_admin_path() . "/$admin_name/$command_name/$with_or_without_role_path";
+        return self::pakage_admin_path()."/$admin_name/$command_name/$with_or_without_role_path";
     }
 
     public static function content_replace_path($command_name): string
     {
-        return self::module_path($command_name)."/content-replace";
+        return self::module_path($command_name).'/content-replace';
     }
 
     public static function content_modify_path($command_name): string
     {
-        return self::module_path($command_name)."/content-modify";
+        return self::module_path($command_name).'/content-modify';
     }
 
     public static function publish_path($command_name): string
     {
-        return self::module_path($command_name)."/publish";
+        return self::module_path($command_name).'/publish';
     }
 
     public static function role_permission_path_or_not(): string
     {
-        return config('nbackend.role_permission') ? 'with-role-permission' : "without-role-permission";
+        return config('nbackend.role_permission') ? 'with-role-permission' : 'without-role-permission';
     }
+
     public static function with_or_without_role_permission_key(): string
     {
-        return str_replace('-','_',self::role_permission_path_or_not());
+        return str_replace('-', '_', self::role_permission_path_or_not());
     }
-
-
 }
