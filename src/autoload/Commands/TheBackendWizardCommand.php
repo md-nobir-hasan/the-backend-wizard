@@ -2,11 +2,11 @@
 
 namespace Nobir\TheBackendWizard\Commands;
 
+use Artisan;
 use Illuminate\Console\Command;
 use Nobir\TheBackendWizard\HelperClass\CommandName;
 use Nobir\TheBackendWizard\HelperClass\Module;
 use Nobir\TheBackendWizard\Modules\Setup\AdminPanelSetup;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 class TheBackendWizardCommand extends Command
@@ -15,10 +15,9 @@ class TheBackendWizardCommand extends Command
 
     public $description = 'Enter a module name';
 
-    protected array $config;
-
     public function handle(): int
     {
+        //SN: module and the command name are same
         $modul_name = $this->argument('moduleName');
 
         $config = config('nbackend');
@@ -29,31 +28,37 @@ class TheBackendWizardCommand extends Command
             return false; // Stop execution
         }
 
-        $this->config = $config;
-
         $this->warn('Please, see the nbackend.php config file. everything setting up according to the file');
 
         //transfer to specific module
-        switch ($modul_name) {
-            case CommandName::SETUP:
-                $module = Module::create(CommandName::SETUP);
-                $this->process($module);
-                break;
+        // switch ($modul_name) {
+        //     case CommandName::SETUP:
+        //         $module = Module::create(CommandName::SETUP);
+        //         $this->process($module);
+        //         break;
 
-                // case CommandName::SIDEBAR_REFRESH:
-                //     $this->sidebarRefresh();
-                //     break;
+        //         // case CommandName::SIDEBAR_REFRESH:
+        //         //     $this->sidebarRefresh();
+        //         //     break;
 
-                // case CommandName::CLEAN:
-                //     $this->reverseSetup();
-                //     break;
-            default:
-                $this->error('Please provide a valid command');
+        //         // case CommandName::CLEAN:
+        //         //     $this->reverseSetup();
+        //         //     break;
+        //     default:
+        //         $this->error('Please provide a valid command');
 
-                return false;
-        }
+        //         return false;
+        // }
 
-        if ($module) {
+        if (in_array($modul_name, CommandName::COMMANDS)) {
+
+            $module = Module::create(CommandName::SETUP);
+
+            $this->process($module);
+
+        } elseif (in_array($modul_name, CommandName::REVERSE_COMMANDS)) {
+
+            $this->info('necessary command not yet functional');
 
         }
 
@@ -62,83 +67,26 @@ class TheBackendWizardCommand extends Command
 
     public function process($module)
     {
+        //Af first running necessary command
+        $this->runCommandFirst($module);
 
-        //Stater kids installation
-        switch ($this->config['stater_kids']) {
-            case 'breeze':
-                $this->installBreeze();
-            default:
-                break;
-        }
-
+        //publishing the file
         $this->info('Publishing the necessary files...');
-        $module->publish();
+        $this->info($module->publish());
 
+        //Content replace for the specefic file
         $this->info('Replacing the necessary files....\n');
-        $module->replaceContent();
+        $this->info($module->contentReplace());
 
-        $this->info('Replacing done.🦾\n');
+        //Content modify for the specefic file
+        $this->info('Modifying the necessary files....\n');
+        $this->info($module->contentModify());
 
-        // $this->call('migrate');
+        //Again finishing command running command
+        $this->runCommandLast($module);
 
-        if ($this->config['asset_build']) {
-            $this->assetBuild();
-        }
+        $this->info('Done.🦾\n');
 
-    }
-
-    protected function installBreeze()
-    {
-        $this->info('Installing Laravel Breeze...');
-        $composer = $this->findComposer();
-        $this->executeShellCommand("$composer require laravel/breeze --dev");
-
-        // Install Laravel Breeze scaffolding with default stack (e.g., Blade, no dark mode, Pest for testing)
-        $this->installBreezeScaffolding();
-
-        // Run migrations
-        $this->info('Breeze installation is completed!');
-    }
-
-    protected function installBreezeScaffolding()
-    {
-        $this->info('Installing Breeze scaffolding with blade, alpine, no dark mode, pest for testing options...');
-
-        // Simulate user input for the Breeze scaffolding process
-        $process = new Process(['php', 'artisan', 'breeze:install']);
-        $process->setInput("blade\nno\n0\n"); // Simulate default answers for the prompts:
-        // 0 -> Blade (choose stack)
-        // no -> No dark mode
-        // 0 -> Pest for testing framework
-        $process->setTimeout(null);
-
-        $process->run();
-
-        // Check if the process was successful
-        if (! $process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        $this->info($process->getOutput());
-    }
-
-    protected function executeShellCommand($command)
-    {
-        $this->info("Running: $command");
-        $process = proc_open($command, [
-            1 => ['pipe', 'w'],
-            2 => ['pipe', 'w'],
-        ], $pipes);
-
-        if (is_resource($process)) {
-            while ($output = fgets($pipes[1])) {
-                $this->line($output);
-            }
-            while ($error = fgets($pipes[2])) {
-                $this->error($error);
-            }
-            proc_close($process);
-        }
     }
 
     protected function findComposer()
@@ -150,14 +98,80 @@ class TheBackendWizardCommand extends Command
         return 'composer';
     }
 
-    protected function assetBuild(): void
+    protected function findNpm()
     {
-        // Install NPM dependencies
-        $this->executeShellCommand('npm install');
+        // Check for a project-local NPM installation
+        if (file_exists(getcwd().'/node_modules/.bin/npm')) {
+            return './node_modules/.bin/npm';
+        }
 
-        // Compile assets
-        $this->executeShellCommand('npm run build');
+        // Fall back to global NPM
+        return 'npm';
+    }
 
+    protected function composerCommand($command)
+    {
+        $this->info("composer $command running ...");
+        $composer = $this->findComposer();
+        $this->executeShellCommand("$composer $command");
+
+        // Run migrations
+        $this->info('Success');
+    }
+
+    protected function artisanCommand($command)
+    {
+        $this->info("php artisan $command running....");
+
+        Artisan::call($command);
+
+        Artisan::output();
+
+    }
+
+    protected function npmCommand($command): void
+    {
+        $this->info("npm $command running ...");
+
+        $composer = $this->findNpm();
+        $this->executeShellCommand("$composer $command");
+
+        $this->info('Success');
+
+    }
+
+    public function runCommandFirst($module): string
+    {
+
+        if (! isset($module->commands_and_paths['commands'])) {
+            return 'There are no command set to first priority';
+        }
+        foreach ($module->commands_and_paths['commands'] as $command) {
+
+            if ($command['first']) {
+                $function = $command['type'].'Command';
+                $this->{$function}();
+            }
+        }
+
+        return "The commands that's are first priority runned successfully";
+    }
+
+    public function runCommandLast($module): string
+    {
+
+        if (! isset($module->commands_and_paths['commands'])) {
+            return 'There are no command set to last priority';
+        }
+        foreach ($module->commands_and_paths['commands'] as $command) {
+
+            if (! $command['first']) {
+                $function = $command['type'].'Command';
+                $this->{$function}();
+            }
+        }
+
+        return "The commands that's are last priority runned successfully";
     }
 
     public function reverseSetup()
