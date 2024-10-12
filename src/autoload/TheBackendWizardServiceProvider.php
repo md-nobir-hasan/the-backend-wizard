@@ -54,10 +54,6 @@ class TheBackendWizardServiceProvider extends ServiceProvider
             TheBackendWizardCommand::class,
         ]);
 
-        // automatic publishing configure file
-        $this->publishes([
-            __DIR__.'/configs/config.php' => config_path('nbackend.php'), //configure files
-        ]);
 
         //publishing configure file using command
         $this->publishes([
