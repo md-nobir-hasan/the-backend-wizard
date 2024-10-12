@@ -55,6 +55,9 @@
             ]
         }
     },
+    "post-autoload-dump": [
+        "@php artisan vendor:publish --tag=backend-config --force"
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }
