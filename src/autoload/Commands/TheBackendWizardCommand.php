@@ -85,7 +85,7 @@ class TheBackendWizardCommand extends Command
         //Again finishing command running command
         $this->runCommandLast($module);
 
-        $this->info('Replacing done.🦾\n');
+        $this->info('Done.🦾\n');
 
     }
 

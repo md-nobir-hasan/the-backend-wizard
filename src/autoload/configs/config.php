@@ -25,6 +25,6 @@ return [
      * code slightly change in case of role permission
      *HEre you can set role permission is set or not to the admin panel
      */
-    'role_parmission' => true,
+    'role_permission' => true,
 
 ];

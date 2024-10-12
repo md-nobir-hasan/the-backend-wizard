@@ -22,10 +22,11 @@ class Module
     {
         $this->admin_name = config('nbackend.admin_name');
         $this->command = $command_name; // Set the command passed to constructor
+        $path_role_permission_or_not = CommandName::with_or_without_role_permission_key();
 
         // Assuming CommandName::pakage_root_path is a method that retrieves paths
         $this->file_location = require CommandName::pakage_root_path('configs/filelocation.php');
-        $this->commands_and_paths = $this->file_location[$this->admin_name][$this->command];
+        $this->commands_and_paths = $this->file_location[$this->admin_name][$this->command][$path_role_permission_or_not];
     }
 
     // Singleton creation method
@@ -54,7 +55,7 @@ class Module
     // Replaces file content as defined in file paths
     public function contentReplace()
     {
-        if (isset($this->commands_and_paths['content_replace']) && count($this->commands_and_paths['content_replace']) > 0) {
+        if (!isset($this->commands_and_paths['content_replace']) || count($this->commands_and_paths['content_replace']) < 1) {
             return 'No replaceable files';
         }
 
