@@ -5,7 +5,34 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/nobir/the-backend-wizard/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/nobir/the-backend-wizard/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/nobir/the-backend-wizard.svg?style=flat-square)](https://packagist.org/packages/nobir/the-backend-wizard)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This pakage is usefull when you want to store and use again and again a admin panel. ..
+
+# Rules to setup a module for a specific admin panel
+
+Diagram: command register => adding specefic files => define their location
+SN: Remember, when you change anything you may change this in two place. with role permission, without role permission.
+
+### Command register: in CommandName file -
+
+1. in commands array
+2. make a constant property and assign the same command.
+
+### adding files: in admins folders -
+
+1. folder with admin name
+2. folder with command name
+3. two folder - with-role-permission and without-role-permission.
+4. final location - Here setup all file according to their folder
+
+### Define Location:
+
+1. find the filelocation file.
+2. here there are array with the admin name. and the array structure according to the above folder : admn name => command name => with-role-permission, without-role-permission folder => final location
+
+At last run the command and see the magic.
+
+3. two folder - with-role-permission and without-role-permission.
+4. final locatin - Here setup all file according to their folder
 
 ## Support us
 
@@ -23,43 +50,39 @@ You can install the package via composer:
 composer require nobir/the-backend-wizard
 ```
 
-You can publish and run the migrations with:
+Publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="the-backend-wizard-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="the-backend-wizard-config"
+php artisan vendor:publish --tag="backend-config"
 ```
 
 This is the contents of the published config file:
 
 ```php
 return [
+
+    /**  Available admins are :-
+     *
+     * taildash,
+     *
+     * upcoming more
+     */
+    'admin_name' => 'taildash',
+
+    /**
+     * code slightly change in case of role permission
+     *HEre you can set role permission is set or not to the admin panel
+     */
+    'role_permission' => true,
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="the-backend-wizard-views"
 ```
 
 ## Usage
 
-```php
-$theBackendWizard = new Nobir\TheBackendWizard();
-echo $theBackendWizard->echoPhrase('Hello, Nobir!');
-```
-
-## Testing
+At first set up a admin panel:
 
 ```bash
-composer test
+php artisan nobir:backend setup
 ```
 
 ## Changelog
@@ -76,8 +99,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Md. Nobir Hasan](https://github.com/nobir-hasan)
-- [All Contributors](../../contributors)
+-   [Md. Nobir Hasan](https://github.com/nobir-hasan)
+-   [All Contributors](../../contributors)
 
 ## License
 

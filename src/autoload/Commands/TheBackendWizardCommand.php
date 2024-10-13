@@ -157,6 +157,24 @@ class TheBackendWizardCommand extends Command
         $this->info("The commands that's are last priority runned successfully");
     }
 
+    protected function executeShellCommand($command)
+    {
+        $this->info("Running: $command");
+        $process = proc_open($command, descriptor_spec: [
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w'],
+        ], $pipes);
+
+        if (is_resource($process)) {
+            while ($output = fgets($pipes[1])) {
+                $this->line($output);
+            }
+            while ($error = fgets($pipes[2])) {
+                $this->error($error);
+            }
+            proc_close($process);
+        }
+    }
     public function reverseSetup()
     {
         (new AdminPanelSetup)->down();
