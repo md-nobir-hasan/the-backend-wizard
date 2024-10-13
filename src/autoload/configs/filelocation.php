@@ -40,7 +40,8 @@ return [
         CommandName::SETUP => [
             'with_role_permission' => [
                 'commands' => [
-                    ['code' => 'require laravel/breeze --dev', 'type' => true, 'first' => true],
+                    ['code' => 'require laravel/breeze --dev', 'type' => 'composer', 'first' => true],
+                    ['code' => 'run build', 'type' => 'npm', 'first' => false],
                 ],
                 'content_replace' => [
                     CommandName::content_replace_path(CommandName::SETUP).'/0001_01_01_000000_create_users_table.php' => database_path('migrations/0001_01_01_000000_create_users_table.php'),
