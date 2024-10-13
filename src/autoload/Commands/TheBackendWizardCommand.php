@@ -30,26 +30,6 @@ class TheBackendWizardCommand extends Command
 
         $this->warn('Please, see the nbackend.php config file. everything setting up according to the file');
 
-        //transfer to specific module
-        // switch ($modul_name) {
-        //     case CommandName::SETUP:
-        //         $module = Module::create(CommandName::SETUP);
-        //         $this->process($module);
-        //         break;
-
-        //         // case CommandName::SIDEBAR_REFRESH:
-        //         //     $this->sidebarRefresh();
-        //         //     break;
-
-        //         // case CommandName::CLEAN:
-        //         //     $this->reverseSetup();
-        //         //     break;
-        //     default:
-        //         $this->error('Please provide a valid command');
-
-        //         return false;
-        // }
-
         if (in_array($modul_name, CommandName::COMMANDS)) {
 
             $module = Module::create(CommandName::SETUP);
@@ -68,6 +48,7 @@ class TheBackendWizardCommand extends Command
     public function process($module)
     {
         //Af first running necessary command
+        $this->info('First command running...');
         $this->runCommandFirst($module);
 
         //publishing the file
@@ -83,6 +64,7 @@ class TheBackendWizardCommand extends Command
         $this->info($module->contentModify());
 
         //Again finishing command running command
+        $this->info('Second command running');
         $this->runCommandLast($module);
 
         $this->info('Done.🦾\n');
@@ -91,7 +73,7 @@ class TheBackendWizardCommand extends Command
 
     protected function findComposer()
     {
-        if (file_exists(getcwd().'/composer.phar')) {
+        if (file_exists(getcwd() . '/composer.phar')) {
             return 'php composer.phar';
         }
 
@@ -101,7 +83,7 @@ class TheBackendWizardCommand extends Command
     protected function findNpm()
     {
         // Check for a project-local NPM installation
-        if (file_exists(getcwd().'/node_modules/.bin/npm')) {
+        if (file_exists(getcwd() . '/node_modules/.bin/npm')) {
             return './node_modules/.bin/npm';
         }
 
@@ -140,38 +122,39 @@ class TheBackendWizardCommand extends Command
 
     }
 
-    public function runCommandFirst($module): string
+    public function runCommandFirst($module)
     {
 
-        if (! isset($module->commands_and_paths['commands'])) {
-            return 'There are no command set to first priority';
+        if (!isset($module->commands_and_paths['commands'])) {
+            $this->info('There are no command set to first priority');
         }
+
         foreach ($module->commands_and_paths['commands'] as $command) {
 
             if ($command['first']) {
-                $function = $command['type'].'Command';
-                $this->{$function}();
+                $function = $command['type'] . 'Command';
+                $this->{$function}($command['code']);
             }
         }
 
-        return "The commands that's are first priority runned successfully";
+        $this->info("The commands that's are first priority runned successfully");
     }
 
-    public function runCommandLast($module): string
+    public function runCommandLast($module)
     {
 
-        if (! isset($module->commands_and_paths['commands'])) {
-            return 'There are no command set to last priority';
+        if (!isset($module->commands_and_paths['commands'])) {
+            $this->info('There are no command set to last priority');
         }
         foreach ($module->commands_and_paths['commands'] as $command) {
 
-            if (! $command['first']) {
-                $function = $command['type'].'Command';
-                $this->{$function}();
+            if (!$command['first']) {
+                $function = $command['type'] . 'Command';
+                $this->{$function}($command['code']);
             }
         }
 
-        return "The commands that's are last priority runned successfully";
+        $this->info("The commands that's are last priority runned successfully");
     }
 
     public function reverseSetup()

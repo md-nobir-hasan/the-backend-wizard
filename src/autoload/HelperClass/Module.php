@@ -7,7 +7,7 @@ use File;
 
 class Module
 {
-    private array $commands_and_paths;
+    public array $commands_and_paths;
 
     private array $file_location;
 
@@ -26,6 +26,7 @@ class Module
 
         // Assuming CommandName::pakage_root_path is a method that retrieves paths
         $this->file_location = require CommandName::pakage_root_path('configs/filelocation.php');
+
         $this->commands_and_paths = $this->file_location[$this->admin_name][$this->command][$path_role_permission_or_not];
     }
 
@@ -55,7 +56,7 @@ class Module
     // Replaces file content as defined in file paths
     public function contentReplace()
     {
-        if (! isset($this->commands_and_paths['content_replace']) || count($this->commands_and_paths['content_replace']) < 1) {
+        if (!isset($this->commands_and_paths['content_replace']) || count($this->commands_and_paths['content_replace']) < 1) {
             return 'No replaceable files';
         }
 
@@ -67,7 +68,7 @@ class Module
                 File::put($app_path, $content);
             } catch (\Exception $e) {
                 // Log or handle the exception properly
-                echo 'File operation failed: '.$e->getMessage();
+                echo 'File operation failed: ' . $e->getMessage();
             }
         }
     }
@@ -75,7 +76,7 @@ class Module
     // Mdify the files content as defined in file paths
     public function contentModify()
     {
-        if (! isset($this->commands_and_paths['content_modify']) || count($this->commands_and_paths['content_modify']) < 1) {
+        if (!isset($this->commands_and_paths['content_modify']) || count($this->commands_and_paths['content_modify']) < 1) {
             return 'Content modify not defined';
         }
 
@@ -86,12 +87,12 @@ class Module
                 $content_app = File::get($modify['app_path']);
                 $content_pakage = File::get($modify['pakage_path']);
                 $replace = $modify['replace'];
-                $content = str_replace($replace, $content_pakage."\n $replace", $content_app);
+                $content = str_replace($replace, $content_pakage . "\n $replace", $content_app);
 
                 File::put($modify['app_path'], $content);
             } catch (\Exception $e) {
                 // Log or handle the exception properly
-                echo 'File operation failed: '.$e->getMessage();
+                echo 'File operation failed: ' . $e->getMessage();
             }
         }
     }
