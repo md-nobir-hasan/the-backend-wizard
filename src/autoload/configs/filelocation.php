@@ -41,6 +41,7 @@ return [
             'with_role_permission' => [
                 'commands' => [
                     ['code' => 'require laravel/breeze --dev', 'type' => 'composer', 'first' => true],
+                    ['code' => 'breeze:install', 'type' => 'artisan', 'first' => true],
                     ['code' => 'run build', 'type' => 'npm', 'first' => false],
                     ['code' => 'migrate:fresh --seed', 'type' => 'artisan', 'first' => false],
                 ],
