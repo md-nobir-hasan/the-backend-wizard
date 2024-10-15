@@ -94,7 +94,6 @@ class TheBackendWizardCommand extends Command
 
     protected function composerCommand($command)
     {
-        $this->info("Running: composer $command running ...");
         $composer = $this->findComposer();
         $this->executeShellCommand("$composer $command");
 
@@ -115,9 +114,8 @@ class TheBackendWizardCommand extends Command
 
     protected function npmCommand($command): void
     {
-        $this->info("Running: npm $command running ...");
-
         $composer = $this->findNpm();
+
         $this->executeShellCommand("$composer $command");
 
         $this->info('Success');
