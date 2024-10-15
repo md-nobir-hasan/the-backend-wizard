@@ -7,6 +7,8 @@ use Illuminate\Console\Command;
 use Nobir\TheBackendWizard\HelperClass\CommandName;
 use Nobir\TheBackendWizard\HelperClass\Module;
 use Nobir\TheBackendWizard\Modules\Setup\AdminPanelSetup;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 class TheBackendWizardCommand extends Command
 {
@@ -72,7 +74,7 @@ class TheBackendWizardCommand extends Command
 
     protected function findComposer()
     {
-        if (file_exists(getcwd().'/composer.phar')) {
+        if (file_exists(getcwd() . '/composer.phar')) {
             return 'php composer.phar';
         }
 
@@ -82,7 +84,7 @@ class TheBackendWizardCommand extends Command
     protected function findNpm()
     {
         // Check for a project-local NPM installation
-        if (file_exists(getcwd().'/node_modules/.bin/npm')) {
+        if (file_exists(getcwd() . '/node_modules/.bin/npm')) {
             return './node_modules/.bin/npm';
         }
 
@@ -92,9 +94,10 @@ class TheBackendWizardCommand extends Command
 
     protected function composerCommand($command)
     {
-        $this->info("composer $command running ...");
+        $this->info("Running: composer $command running ...");
         $composer = $this->findComposer();
         $this->executeShellCommand("$composer $command");
+
 
         // Run migrations
         $this->info('Success');
@@ -102,7 +105,7 @@ class TheBackendWizardCommand extends Command
 
     protected function artisanCommand($command)
     {
-        $this->info("php artisan $command running....");
+        $this->info("Running: php artisan $command ....");
 
         Artisan::call($command);
 
@@ -112,7 +115,7 @@ class TheBackendWizardCommand extends Command
 
     protected function npmCommand($command): void
     {
-        $this->info("npm $command running ...");
+        $this->info("Running: npm $command running ...");
 
         $composer = $this->findNpm();
         $this->executeShellCommand("$composer $command");
@@ -124,14 +127,14 @@ class TheBackendWizardCommand extends Command
     public function runCommandFirst($module)
     {
 
-        if (! isset($module->commands_and_paths['commands'])) {
+        if (!isset($module->commands_and_paths['commands'])) {
             $this->info('There are no command set to first priority');
         }
 
         foreach ($module->commands_and_paths['commands'] as $command) {
 
             if ($command['first']) {
-                $function = $command['type'].'Command';
+                $function = $command['type'] . 'Command';
                 $this->{$function}($command['code']);
             }
         }
@@ -142,13 +145,13 @@ class TheBackendWizardCommand extends Command
     public function runCommandLast($module)
     {
 
-        if (! isset($module->commands_and_paths['commands'])) {
+        if (!isset($module->commands_and_paths['commands'])) {
             $this->info('There are no command set to last priority');
         }
         foreach ($module->commands_and_paths['commands'] as $command) {
 
-            if (! $command['first']) {
-                $function = $command['type'].'Command';
+            if (!$command['first']) {
+                $function = $command['type'] . 'Command';
                 $this->{$function}($command['code']);
             }
         }
@@ -159,7 +162,8 @@ class TheBackendWizardCommand extends Command
     protected function executeShellCommand($command)
     {
         $this->info("Running: $command");
-        $process = proc_open($command, descriptor_spec: [
+
+        $process = proc_open($command, [
             1 => ['pipe', 'w'],
             2 => ['pipe', 'w'],
         ], $pipes);
