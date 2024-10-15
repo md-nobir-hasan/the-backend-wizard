@@ -7,8 +7,6 @@ use Illuminate\Console\Command;
 use Nobir\TheBackendWizard\HelperClass\CommandName;
 use Nobir\TheBackendWizard\HelperClass\Module;
 use Nobir\TheBackendWizard\Modules\Setup\AdminPanelSetup;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\Process;
 
 class TheBackendWizardCommand extends Command
 {
@@ -74,7 +72,7 @@ class TheBackendWizardCommand extends Command
 
     protected function findComposer()
     {
-        if (file_exists(getcwd() . '/composer.phar')) {
+        if (file_exists(getcwd().'/composer.phar')) {
             return 'php composer.phar';
         }
 
@@ -84,7 +82,7 @@ class TheBackendWizardCommand extends Command
     protected function findNpm()
     {
         // Check for a project-local NPM installation
-        if (file_exists(getcwd() . '/node_modules/.bin/npm')) {
+        if (file_exists(getcwd().'/node_modules/.bin/npm')) {
             return './node_modules/.bin/npm';
         }
 
@@ -96,7 +94,6 @@ class TheBackendWizardCommand extends Command
     {
         $composer = $this->findComposer();
         $this->executeShellCommand("$composer $command");
-
 
         // Run migrations
         $this->info('Success');
@@ -125,14 +122,14 @@ class TheBackendWizardCommand extends Command
     public function runCommandFirst($module)
     {
 
-        if (!isset($module->commands_and_paths['commands'])) {
+        if (! isset($module->commands_and_paths['commands'])) {
             $this->info('There are no command set to first priority');
         }
 
         foreach ($module->commands_and_paths['commands'] as $command) {
 
             if ($command['first']) {
-                $function = $command['type'] . 'Command';
+                $function = $command['type'].'Command';
                 $this->{$function}($command['code']);
             }
         }
@@ -143,13 +140,13 @@ class TheBackendWizardCommand extends Command
     public function runCommandLast($module)
     {
 
-        if (!isset($module->commands_and_paths['commands'])) {
+        if (! isset($module->commands_and_paths['commands'])) {
             $this->info('There are no command set to last priority');
         }
         foreach ($module->commands_and_paths['commands'] as $command) {
 
-            if (!$command['first']) {
-                $function = $command['type'] . 'Command';
+            if (! $command['first']) {
+                $function = $command['type'].'Command';
                 $this->{$function}($command['code']);
             }
         }
