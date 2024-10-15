@@ -92,7 +92,6 @@ class TheBackendWizardCommand extends Command
 
     protected function composerCommand($command)
     {
-        $this->info("composer $command running ...");
         $composer = $this->findComposer();
         $this->executeShellCommand("$composer $command");
 
@@ -102,7 +101,7 @@ class TheBackendWizardCommand extends Command
 
     protected function artisanCommand($command)
     {
-        $this->info("php artisan $command running....");
+        $this->info("Running: php artisan $command ....");
 
         Artisan::call($command);
 
@@ -112,9 +111,8 @@ class TheBackendWizardCommand extends Command
 
     protected function npmCommand($command): void
     {
-        $this->info("npm $command running ...");
-
         $composer = $this->findNpm();
+
         $this->executeShellCommand("$composer $command");
 
         $this->info('Success');
@@ -159,7 +157,8 @@ class TheBackendWizardCommand extends Command
     protected function executeShellCommand($command)
     {
         $this->info("Running: $command");
-        $process = proc_open($command, descriptor_spec: [
+
+        $process = proc_open($command, [
             1 => ['pipe', 'w'],
             2 => ['pipe', 'w'],
         ], $pipes);
