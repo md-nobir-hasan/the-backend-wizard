@@ -2,6 +2,10 @@
 
 All notable changes to `the-backend-wizard` will be documented in this file.
 
+## v3.0.0 - 2024-10-18
+
+This is a stable version
+
 ## v2.8.3 - 2024-10-18
 
 This is a stable version
