@@ -2,11 +2,11 @@
 
 namespace Nobir\TheBackendWizard\Commands;
 
-use Artisan;
 use Illuminate\Console\Command;
 use Nobir\TheBackendWizard\HelperClass\CommandName;
 use Nobir\TheBackendWizard\HelperClass\Module;
 use Nobir\TheBackendWizard\Modules\Setup\AdminPanelSetup;
+use Symfony\Component\Process\Process;
 
 class TheBackendWizardCommand extends Command
 {
@@ -93,7 +93,7 @@ class TheBackendWizardCommand extends Command
     protected function composerCommand($command)
     {
         $composer = $this->findComposer();
-        $this->executeShellCommand("$composer $command");
+        $this->executeShellCommand("$composer $command --no-interaction --prefer-dist");
 
         // Run migrations
         $this->info('Success');
@@ -103,9 +103,7 @@ class TheBackendWizardCommand extends Command
     {
         $this->info("Running: php artisan $command ....");
 
-        Artisan::call($command);
-
-        Artisan::output();
+        $this->executeShellCommand("php artisan $command");
 
     }
 
@@ -156,22 +154,20 @@ class TheBackendWizardCommand extends Command
 
     protected function executeShellCommand($command)
     {
-        $this->info("Running: $command");
+        $process = Process::fromShellCommandline($command, null, null, null, null);
+        $process->setTimeout(null); // No timeout
 
-        $process = proc_open($command, [
-            1 => ['pipe', 'w'],
-            2 => ['pipe', 'w'],
-        ], $pipes);
+        $process->run(function ($type, $buffer) {
+            $this->output->write($buffer);
+        });
 
-        if (is_resource($process)) {
-            while ($output = fgets($pipes[1])) {
-                $this->line($output);
-            }
-            while ($error = fgets($pipes[2])) {
-                $this->error($error);
-            }
-            proc_close($process);
+        if (! $process->isSuccessful()) {
+            $this->error('The command failed.');
+
+            return false;
         }
+
+        return true;
     }
 
     public function reverseSetup()
